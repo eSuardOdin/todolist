@@ -1,6 +1,7 @@
 const createUserInterfaceManager = () => {
     const _body = document.createElement('div');
-    _body.classList.add('task-viewer');
+
+    _body.classList.add('tasks-viewer');
 
     const createTaskCard = (task) => {
         // Card container
@@ -39,6 +40,7 @@ const createUserInterfaceManager = () => {
 
     // Juste a basic container for all task cards of a project
     const appendBody = (element) => {
+        
         _body.appendChild(element);
     }
     

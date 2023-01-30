@@ -35,6 +35,8 @@ const createTask = (title, description, dueDate, priority, checkList, isDue = fa
     }
 
 
+    // Change the done status of task
+    const setIsDone = () => _isDone = !_isDone;
 
     return {
         printTask, 
@@ -44,7 +46,8 @@ const createTask = (title, description, dueDate, priority, checkList, isDue = fa
         getDueDate,
         getPriority,
         getIsDue,
-        getIsDone
+        getIsDone,
+        setIsDone
     };
 }
 
