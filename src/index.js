@@ -2,8 +2,8 @@ import createProject from "./classes/Project";
 import createTask from "./classes/Task";
 
 
-const element = document.createElement('h1');
-element.innerText = 'Hello Webpack';
+const element = document.createElement('p');
+element.innerText = 'Todolist';
 document.body.appendChild(element);
 
 
@@ -17,6 +17,7 @@ const task1 = createTask(
         'Deuxième étape'
 
     ],
+    false,
     false
 );
 
@@ -29,15 +30,17 @@ const task2 = createTask(
         'Une seule étape'
 
     ],
+    false,
     false
 );
 
 const task3 = createTask(
     'Troisième tâche',
     'Alors que celle ci va bien rester dans le projet',
-    new Date(2026, 8, 13),
+    new Date(2023, 2, 1),
     3,
     [],
+    false,
     false
 );
 
@@ -49,6 +52,7 @@ testProject.addTask(task2);
 testProject.addTask(task3);
 
 console.log(testProject.getAllTasks());
+console.log(task3.getTimeLeft());
 console.log(testProject.getTask(0).printTask());
 
 
