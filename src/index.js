@@ -28,7 +28,7 @@ const task1 = createTask(
 
 const task2 = createTask(
     'Deuxième tâche',
-    'Celle ci sera supprimée',
+    'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati fuga odio quisquam incidunt facere voluptatibus nisi expedita accusamus iste dolor itaque rerum neque animi iusto tempore dicta ex, voluptatum modi eum ad molestiae mollitia unde quos laboriosam. Magnam architecto itaque aperiam minus ducimus. Dolorum ex accusamus impedit cum distinctio nisi dolore debitis temporibus eos a fugiat necessitatibus velit quaerat placeat, voluptatem, commodi asperiores dolorem officia consequatur pariatur? Laboriosam, quisquam? Provident esse sequi eos nam ratione nesciunt illo ipsa, maiores at.',
     new Date(2023, 2, 4),
     5,
     [
@@ -61,4 +61,11 @@ console.log(task3.getTimeLeft());
 console.log(testProject.getTask(0).printTask());
 
 
-document.body.appendChild(UIManager.createTaskCard(task1));
+
+UIManager.appendBody(UIManager.createTaskCard(task1));
+UIManager.appendBody(UIManager.createTaskCard(task2));
+UIManager.appendBody(UIManager.createTaskCard(task3));
+
+document.body.appendChild(UIManager.getBody());
+
+

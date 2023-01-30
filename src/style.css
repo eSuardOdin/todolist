@@ -3,6 +3,11 @@
     margin: 0;
 }
 
+.tasks-viewer {
+    display: flex;
+    gap: 40px;
+}
+
 .task-card-container {
     display: flex;
     flex-direction: column;
@@ -26,3 +31,4 @@
     align-items: space-between;
     gap: 10px;
 }
+

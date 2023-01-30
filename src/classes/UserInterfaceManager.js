@@ -1,5 +1,7 @@
-const createUserInterfaceManager = (body) => {
-    const _body = body;
+const createUserInterfaceManager = () => {
+    const _body = document.createElement('div');
+    _body.classList.add('task-viewer');
+
     const createTaskCard = (task) => {
         // Card container
         const container = document.createElement('div');
@@ -28,14 +30,25 @@ const createUserInterfaceManager = (body) => {
         preFooter.appendChild(priority)
 
 
-
+        // Append all to container  
         container.appendChild(title);
         container.appendChild(description);
         container.appendChild(preFooter);
         return container;
     }
 
-    return {createTaskCard};
+    // Juste a basic container for all task cards of a project
+    const appendBody = (element) => {
+        _body.appendChild(element);
+    }
+    
+    const clearBody = () => {
+        _body.innerHTML = '';
+    }
+
+    const getBody = () => _body;
+    
+    return {createTaskCard, appendBody, clearBody, getBody};
 }
 
 export default createUserInterfaceManager;
