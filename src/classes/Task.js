@@ -4,7 +4,7 @@ const createTask = (title, description, dueDate, priority, checkList, isDue = fa
     let _dueDate = dueDate;
     let _priority = priority;
     let _checkList = checkList;
-    let _isDue = isDue;
+    let _isDue = isDue;  // Not sure if it belongs here
     let _isDone = isDone;
 
     const printTask = () => {
@@ -16,7 +16,14 @@ const createTask = (title, description, dueDate, priority, checkList, isDue = fa
         CheckList : ${_checkList}
         isDone : ${_isDone}
         `);
-    }
+    };
+
+    const getTitle = () => _title;
+    const getDescription = () => _description;
+    const getDueDate = () => _dueDate;
+    const getPriority = () => _priority;
+    const getIsDue = () => _isDue;
+    const getIsDone = () => _isDone;
 
     const getTimeLeft = () => {
         const now = new Date().getTime();
@@ -24,13 +31,21 @@ const createTask = (title, description, dueDate, priority, checkList, isDue = fa
         const timeLeft = dueTime - now;
         const days = Math.floor(timeLeft / (1000 * 60 * 60 *24));
         const hours = Math.floor(timeLeft % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
-        const min = Math.floor(timeLeft % (1000 * 60 * 60) /( 1000 * 60) );
-        return (`${days} Days, ${hours} Hours and ${min} Minutes left`);
+        return ({days, hours});
     }
 
 
 
-    return {printTask, getTimeLeft};
+    return {
+        printTask, 
+        getTimeLeft, 
+        getTitle,
+        getDescription,
+        getDueDate,
+        getPriority,
+        getIsDue,
+        getIsDone
+    };
 }
 
 export default createTask;

@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.task-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: solid gray 5px;
+    width: 30vw;
+}
+.task-card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.task-card-description {
+    font-style: italic;
+    color: rgb(43, 43, 43);
+}
+.task-card-pre-footer {
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+    gap: 10px;
+}

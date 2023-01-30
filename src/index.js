@@ -1,5 +1,8 @@
+import './style.css';
+
 import createProject from "./classes/Project";
 import createTask from "./classes/Task";
+import createUserInterfaceManager from "./classes/UserInterfaceManager";
 
 
 const element = document.createElement('p');
@@ -7,9 +10,11 @@ element.innerText = 'Todolist';
 document.body.appendChild(element);
 
 
+const UIManager = createUserInterfaceManager();
+
 const task1 = createTask(
     'Première tâche',
-    'Voyons voir ce que ça donne en pratique',
+    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae quia illo labore aliquam dicta molestiae velit, praesentium iste laborum tempora quas corrupti quod nostrum distinctio cum voluptate dolores! Unde, autem!',
     new Date(2023, 11, 15),
     2,
     [
@@ -56,19 +61,4 @@ console.log(task3.getTimeLeft());
 console.log(testProject.getTask(0).printTask());
 
 
-// console.log(testProject.getName());
-// testProject.addTask('Ranger sa chambre');
-// testProject.addTask('Ranger la couisine');
-// testProject.addTask('Sortir le doggo');
-// testProject.addTask('Manger des chips');
-// testProject.addTask('Afficher toutes les tâches');
-// testProject.addTask('Zoomer sur cette tâche');
-// testProject.addTask('Supprimer sur cette tâche');
-
-
-// console.log(testProject.getAllTasks());
-// console.log(testProject.getTask(5));
-// console.log(testProject.getTask(9));
-
-// testProject.removeTask(6);
-// console.log(testProject.getAllTasks());
+document.body.appendChild(UIManager.createTaskCard(task1));
