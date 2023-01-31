@@ -1,8 +1,28 @@
-const createUserInterfaceManager = () => {
-    const _body = document.createElement('div');
+const createUserInterfaceManager = (body) => {
+    // All skeletons elements of the page
+    const _body = body;
+    const _container = document.createElement('div');
+    _container.classList.add('base-page-container');
+    const _header = document.createElement('div');
+    _header.classList.add('header');
+    const _sidebar = document.createElement('div');
+    _sidebar.classList.add('sidebar');
+    _sidebar.innerHTML = `
+        <h2>Projects</h2>
+        <ul class="project-list"></ul>
+        <button>+ Project</button>`;
+    const _main = document.createElement('div');
+    _main.classList.add('main');
+    const _footer = document.createElement('div');
 
-    _body.classList.add('tasks-viewer');
+    _container.appendChild(_header);
+    _container.appendChild(_sidebar);
+    _container.appendChild(_main);
+    _container.appendChild(_footer);
 
+    _body.appendChild(_container);
+
+    // Create a card from a task
     const createTaskCard = (task) => {
         // Card container
         const container = document.createElement('div');
@@ -38,10 +58,18 @@ const createUserInterfaceManager = () => {
         return container;
     }
 
-    // Juste a basic container for all task cards of a project
-    const appendBody = (element) => {
-        
-        _body.appendChild(element);
+    // Show all projects in sidebar
+    const refreshSidebar = (projects) => {
+        const list = document.querySelector('.project-list');
+        projects.forEach(project => {
+            const el = document.createElement('li');
+            el.innerText = project.getName();
+            list.appendChild(el);
+        });
+    }
+
+    const appendTo = (parent, child) => {
+        parent.appendChild(child);
     }
     
     const clearBody = () => {
@@ -50,7 +78,12 @@ const createUserInterfaceManager = () => {
 
     const getBody = () => _body;
     
-    return {createTaskCard, appendBody, clearBody, getBody};
+    return {
+        createTaskCard,
+        refreshSidebar,
+        clearBody, 
+        getBody,
+    };
 }
 
 export default createUserInterfaceManager;
