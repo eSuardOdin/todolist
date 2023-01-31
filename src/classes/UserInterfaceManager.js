@@ -111,6 +111,7 @@ const createUserInterfaceManager = (body) => {
      */
     const refreshSidebar = (projects) => {
         const list = document.querySelector('.project-list');
+        list.innerHTML = '';
         projects.forEach(project => {
             const el = document.createElement('li');
             el.innerText = project.getName();
@@ -152,7 +153,11 @@ const createUserInterfaceManager = (body) => {
         _container.classList.remove('blur');
     }
 
+// ----------------------------------------------------------------------
 
+    const errProjectForm = (mes) => {
+        document.querySelector('.project-error').innerText = mes;
+    }
 
 
 
@@ -169,7 +174,8 @@ const createUserInterfaceManager = (body) => {
         clearElement,
         appendTo,
         showProjectForm,
-        hideProjectForm, 
+        hideProjectForm,
+        errProjectForm, 
         getBody,
     };
 }

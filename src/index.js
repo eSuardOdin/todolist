@@ -45,10 +45,24 @@ projectFormBtn.addEventListener('click', () => {
 });
 
 // Create project / hide form
+
+// NEED TO ADD ERROR / CANCEl
 const createProjectBtn = document.querySelector('.create-project-btn');
 createProjectBtn.addEventListener('click', () => {
-    UIMan.hideProjectForm()
-    projectFormBtn.disabled = false;
+    const nameInput = document.getElementById('project-name').value;
+    let isProjectExists = false;
+    projectsManager.getProjects().forEach(project => {
+        if(project.getName() === nameInput) isProjectExists = true;
+    });
+
+    if(isProjectExists) {
+        UIMan.errProjectForm('Project already exists');
+    } else {
+        UIMan.hideProjectForm()
+        projectFormBtn.disabled = false;
+        projectsManager.addProject(createProject(nameInput));
+        UIMan.refreshSidebar(projectsManager.getProjects());
+    }
 });
 // Test :
 
