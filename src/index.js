@@ -2,10 +2,8 @@ import './style.css';
 
 import createProject from "./classes/Project";
 import createTask from "./classes/Task";
-import createProjectMan from './classes/ProjectManager.js';
-import createUserInterfaceManager from './classes/UserInterfaceManager';
-
-
+import createUserInterfaceManager from "./classes/UserInterfaceManager";
+import createProjectMan from './classes/ProjectManager';
 // Only for debug
 const printProjects = (projects) => {
     projects.forEach(project => {
@@ -18,8 +16,6 @@ const printProjects = (projects) => {
         })
     });
 };
-
-
 const UIMan = createUserInterfaceManager(document.body);
 
 const defaultProject = createProject('default');
@@ -38,6 +34,22 @@ projectsManager.getProjects().forEach(proj => console.log(proj.getName()))
 
 UIMan.refreshSidebar(projectsManager.getProjects());
 
+
+// Adding the listeners
+
+// Show the project Form
+const projectFormBtn = document.querySelector('.project-form-btn');
+projectFormBtn.addEventListener('click', () => {
+    UIMan.showProjectForm();
+    projectFormBtn.disabled = true;
+});
+
+// Create project / hide form
+const createProjectBtn = document.querySelector('.create-project-btn');
+createProjectBtn.addEventListener('click', () => {
+    UIMan.hideProjectForm()
+    projectFormBtn.disabled = false;
+});
 // Test :
 
 

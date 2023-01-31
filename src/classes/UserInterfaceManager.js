@@ -1,5 +1,7 @@
 const createUserInterfaceManager = (body) => {
-    // All skeletons elements of the page
+    
+    
+    // Instanciate base page skeleton and UI elements to manage
     const _body = body;
     const _container = document.createElement('div');
     _container.classList.add('base-page-container');
@@ -10,19 +12,52 @@ const createUserInterfaceManager = (body) => {
     _sidebar.innerHTML = `
         <h2>Projects</h2>
         <ul class="project-list"></ul>
-        <button>+ Project</button>`;
+        <button class="project-form-btn">+ Project</button>`;
     const _main = document.createElement('div');
     _main.classList.add('main');
     const _footer = document.createElement('div');
+
+
+
+    // Creating hidden elements
+    const _formContainer = document.createElement('div');
+        _formContainer.classList.add('form-container');
+        _formContainer.classList.add('hidden');
+
+        _formContainer.innerHTML = `
+        <p class="project-form-title">Create a new project : </p>
+        <form action="#">
+            <label for="project-name">Project name : </label>
+            <input type="text" name="project-name" id="project-name">
+        </form>
+        <p class="project-error"></p>
+        <div>
+            <button class="create-project-btn">Create Project</button>
+            <button class="cancel-project-btn">Cancel</button>
+        </div>
+        `;
+
 
     _container.appendChild(_header);
     _container.appendChild(_sidebar);
     _container.appendChild(_main);
     _container.appendChild(_footer);
-
+    
     _body.appendChild(_container);
+    _body.appendChild(_formContainer);
+    
 
-    // Create a card from a task
+
+
+
+
+// ----------------------------------------------------------------------
+
+    /**
+     * Create an HTML task card 
+     * @param {task} task 
+     * @returns a task as a card in order to append it as an html element
+     */
     const createTaskCard = (task) => {
         // Card container
         const container = document.createElement('div');
@@ -58,7 +93,22 @@ const createUserInterfaceManager = (body) => {
         return container;
     }
 
+
+
+// ----------------------------------------------------------------------
     // Show all projects in sidebar
+
+    /**
+     * Refresh the side bar in order to display all projects.
+     * Does not returns anything as it appends to side bar in method
+     * 
+     * o------------------------------------------------------o
+     * |                                                      |
+     * | Do I need to separate element creation and display ? |
+     * |                                                      |
+     * o------------------------------------------------------o
+     * @param {projectManager} projects 
+     */
     const refreshSidebar = (projects) => {
         const list = document.querySelector('.project-list');
         projects.forEach(project => {
@@ -68,20 +118,58 @@ const createUserInterfaceManager = (body) => {
         });
     }
 
+// ----------------------------------------------------------------------
+    /**
+     * Appends an element to another
+     * @param {HTMLElement} parent 
+     * @param {HTMLElement} child 
+     */
     const appendTo = (parent, child) => {
         parent.appendChild(child);
     }
-    
-    const clearBody = () => {
-        _body.innerHTML = '';
+
+
+// ----------------------------------------------------------------------
+    /**
+     * Clears an HTML Element of all it contains
+     * @param {HTMLElement} element 
+     */
+    const clearElement = (element) => {
+        element.innerHTML = '';
     }
 
+// ----------------------------------------------------------------------
+
+    const showProjectForm = () => {
+        _formContainer.classList.remove('hidden');
+        _container.classList.add('blur');
+    }
+
+// ----------------------------------------------------------------------
+
+    const hideProjectForm = () => {
+        _formContainer.classList.add('hidden');
+        _container.classList.remove('blur');
+    }
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------
+// GETTERS SETTERS ETC...
     const getBody = () => _body;
-    
+
+// Return 
     return {
         createTaskCard,
         refreshSidebar,
-        clearBody, 
+        clearElement,
+        appendTo,
+        showProjectForm,
+        hideProjectForm, 
         getBody,
     };
 }

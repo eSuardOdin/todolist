@@ -3,13 +3,38 @@
     margin: 0;
 }
 
+.hidden.form-container {
+    display: none;
+}
+
+
+/* 
+-----------------------
+
+    BASE LAYOUT
+    
+------------------------
+*/
 
 .base-page-container{
     display: grid;
     grid-template-columns: 200px 1fr;
-    grid-template-rows: 100px 1fr 70px;
+    grid-template-rows: 100px 1fr 40px;
     height: 100vh;
 }
+
+.blur{
+    filter: blur(2px);
+}
+
+
+/* 
+-----------------------
+
+    HEADER
+    
+------------------------
+*/
 
 .header{
     grid-column: 1/3;
@@ -17,6 +42,16 @@
     background-color: red;
     border: solid black 1px;
 }
+
+
+
+/* 
+-----------------------
+
+    SIDEBAR
+    
+------------------------
+*/
 
 .sidebar{
     grid-column: 1/2;
@@ -29,12 +64,33 @@
     color: gray;
 }
 
+
+
+
+
+/* 
+-----------------------
+
+    MAIN
+    
+------------------------
+*/
+
 .main{
     grid-column: 2/3;
     grid-row: 2/3;
     background-color: aqua;
     border: solid black 1px;
 }
+
+
+/* 
+-----------------------
+
+    FOOTER
+    
+------------------------
+*/
 
 .footer{
     grid-column: 1/3;
@@ -45,6 +101,40 @@
 
 
 
+
+
+
+/* 
+-----------------------
+
+    FORM
+    
+------------------------
+*/
+
+.form-container {
+position: fixed;
+top: 20vh;
+left: 20vw;
+
+padding: 20px;
+border: solid black 4px;
+border-radius: 5px;
+
+background-color: antiquewhite;
+box-shadow: 4px 4px 5px 0px #493eaa;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+gap: 20px;
+}
+.project-form-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 
 
 
@@ -76,4 +166,10 @@
     align-items: space-between;
     gap: 10px;
 }
+
+
+
+
+
+
 
