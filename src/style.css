@@ -64,7 +64,13 @@
     color: gray;
 }
 
-
+.project-list > li {
+    cursor: pointer;
+}
+.project-list > li:hover {
+    color: black;
+    font-size: 1.1rem;
+}
 
 
 

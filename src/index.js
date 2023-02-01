@@ -64,7 +64,17 @@ createProjectBtn.addEventListener('click', () => {
         UIMan.refreshSidebar(projectsManager.getProjects());
     }
 });
-// Test :
+
+
+
+// A METTRE DANS UIMANAGER POUR PRENDRE EN COMPTE LES REFRESH
+// RAJOUTER UN ATTRIBUT GLOBAL POUR ATTRIBUER DYNAMIQUEMENT LE PROJET SELECTIONNE
+// Click on project in side bar
+const projectsSide = document.querySelectorAll('.side-project');
+projectsSide.forEach(project => {
+    project.addEventListener('click', () => console.log(project.textContent));
+})
+
 
 
 

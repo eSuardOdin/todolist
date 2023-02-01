@@ -114,6 +114,7 @@ const createUserInterfaceManager = (body) => {
         list.innerHTML = '';
         projects.forEach(project => {
             const el = document.createElement('li');
+            el.classList.add('side-project');
             el.innerText = project.getName();
             list.appendChild(el);
         });
