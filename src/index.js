@@ -4,6 +4,7 @@ import createProject from "./classes/Project";
 import createTask from "./classes/Task";
 import createUserInterfaceManager from "./classes/UserInterfaceManager";
 import createProjectMan from './classes/ProjectManager';
+import data from './data';
 // Only for debug
 const printProjects = (projects) => {
     projects.forEach(project => {
@@ -67,13 +68,14 @@ createProjectBtn.addEventListener('click', () => {
 
 
 
-// A METTRE DANS UIMANAGER POUR PRENDRE EN COMPTE LES REFRESH
-// RAJOUTER UN ATTRIBUT GLOBAL POUR ATTRIBUER DYNAMIQUEMENT LE PROJET SELECTIONNE
-// Click on project in side bar
-const projectsSide = document.querySelectorAll('.side-project');
-projectsSide.forEach(project => {
-    project.addEventListener('click', () => console.log(project.textContent));
-})
+defaultProject.addTask(data.task1);
+defaultProject.addTask(data.task2);
+
+UIMan.refreshProjectTasks(projectsManager.getProject(0).getAllTasks());
+console.log(projectsManager.getProject(0).getAllTasks());
+
+
+
 
 
 

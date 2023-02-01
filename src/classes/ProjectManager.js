@@ -13,11 +13,13 @@ const createProjectMan = () => {
         }
     }
     const getProjects = () => _projects;
+    const getProject = (index) => _projects[index];
 
     return {
         addProject,
         removeProject,
         getProjects,
+        getProject,
     }
 }
 

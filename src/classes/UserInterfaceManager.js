@@ -115,9 +115,25 @@ const createUserInterfaceManager = (body) => {
         projects.forEach(project => {
             const el = document.createElement('li');
             el.classList.add('side-project');
+            el.addEventListener('click', () => console.log(el.textContent))
             el.innerText = project.getName();
             list.appendChild(el);
         });
+    }
+
+// ----------------------------------------------------------------------
+
+    const refreshProjectTasks = (project) => {
+        _main.innerHTML = '';
+        const container = document.createElement('div');
+
+        project.getAllTasks().forEach(task, () => {
+            // const taskLine = document.createElement('h1');
+            // taskLine.innerText = task.getTitle();
+            // container.appendChild(taskLine);
+            console.log(task);
+        });
+        _main.appendChild(container);
     }
 
 // ----------------------------------------------------------------------
@@ -172,6 +188,7 @@ const createUserInterfaceManager = (body) => {
     return {
         createTaskCard,
         refreshSidebar,
+        refreshProjectTasks,
         clearElement,
         appendTo,
         showProjectForm,
