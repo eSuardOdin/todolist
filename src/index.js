@@ -16,13 +16,13 @@ const printProjects = (projects) => {
         })
     });
 };
-const UIMan = createUserInterfaceManager(document.body);
+const projectsManager = createProjectMan();
+const UIMan = createUserInterfaceManager(document.body, projectsManager);
 
 const defaultProject = createProject('default');
 const project1 = createProject('project1');
 const project2 = createProject('project2');
 const project3 = createProject('project3');
-const projectsManager = createProjectMan();
 
 projectsManager.addProject(defaultProject);
 projectsManager.addProject(project1);
@@ -32,7 +32,7 @@ projectsManager.addProject(project3);
 console.log(projectsManager.getProjects());
 projectsManager.getProjects().forEach(proj => console.log(proj.getName()))
 
-UIMan.refreshSidebar(projectsManager.getProjects());
+UIMan.refreshSidebar();
 
 
 // Adding the listeners
@@ -65,15 +65,6 @@ createProjectBtn.addEventListener('click', () => {
     }
 });
 
-
-
-// A METTRE DANS UIMANAGER POUR PRENDRE EN COMPTE LES REFRESH
-// RAJOUTER UN ATTRIBUT GLOBAL POUR ATTRIBUER DYNAMIQUEMENT LE PROJET SELECTIONNE
-// Click on project in side bar
-const projectsSide = document.querySelectorAll('.side-project');
-projectsSide.forEach(project => {
-    project.addEventListener('click', () => console.log(project.textContent));
-})
 
 
 

@@ -62,6 +62,10 @@
 
 .project-list {
     color: gray;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
 }
 
 .project-list > li {

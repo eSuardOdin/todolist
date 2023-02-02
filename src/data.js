@@ -49,4 +49,5 @@ const task2 = createTask(
         false
     );
 
-    
+const data = {task1, task2, task3, task4};
+export default data; 

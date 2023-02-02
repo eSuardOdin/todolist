@@ -1,6 +1,6 @@
-const createUserInterfaceManager = (body) => {
-    
-    
+
+const createUserInterfaceManager = (body, projectMan) => {
+    const _projectManager = projectMan;
     // Instanciate base page skeleton and UI elements to manage
     const _body = body;
     const _container = document.createElement('div');
@@ -46,7 +46,23 @@ const createUserInterfaceManager = (body) => {
     _body.appendChild(_container);
     _body.appendChild(_formContainer);
     
-
+    const _createProjectBtn = document.querySelector('.create-project-btn');
+    _createProjectBtn.addEventListener('click', () => {
+        const nameInput = document.getElementById('project-name').value;
+        let isProjectExists = false;
+        _projectManager.getProjects().forEach(project => {
+            if(project.getName() === nameInput) isProjectExists = true;
+        });
+    
+        if(isProjectExists) {
+            errProjectForm('Project already exists');
+        } else {
+            hideProjectForm()
+            _createProjectBtn.disabled = false;
+            _projectManager.addProject(createProject(nameInput));
+            refreshSidebar(_projectManager.getProjects());
+        }
+    });
 
 
 
@@ -109,14 +125,18 @@ const createUserInterfaceManager = (body) => {
      * o------------------------------------------------------o
      * @param {projectManager} projects 
      */
-    const refreshSidebar = (projects) => {
+    const refreshSidebar = () => {
         const list = document.querySelector('.project-list');
         list.innerHTML = '';
-        projects.forEach(project => {
+        _projectManager.getProjects().forEach(project => {
             const el = document.createElement('li');
             el.classList.add('side-project');
             el.innerText = project.getName();
             list.appendChild(el);
+            el.addEventListener('click', () => {
+                _projectManager.setFocusedProject(project);
+                console.log(_projectManager.getFocusedProject());
+            });
         });
     }
 
