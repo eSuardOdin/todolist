@@ -41,7 +41,7 @@ const createUI = (body) => {
     _container.appendChild(_footer);
     
     _body.appendChild(_container);
-    _body.appendChild(_formContainer);
+    _body.appendChild(_projectFormContainer);
     // #endregion
 
     const refreshSidebar = (projects) => {
@@ -58,10 +58,17 @@ const createUI = (body) => {
         });
     };
 
-    const shownForm = (type) => {
+    const showForm = (type) => {
         if(type === 'project') {
             _projectFormContainer.classList.remove('hidden');
             _container.classList.add('blur'); 
         }
     }; 
-}
+
+    return{
+        refreshSidebar, 
+        showForm,
+    }
+};
+
+export default createUI;

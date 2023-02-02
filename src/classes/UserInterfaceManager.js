@@ -12,7 +12,7 @@ const createUserInterfaceManager = (body, projectMan) => {
     _sidebar.innerHTML = `
         <h2>Projects</h2>
         <ul class="project-list"></ul>
-        <button class="project-form-btn">+ Project</button>`;
+        <button class="project-form-btn">Add Project</button>`;
     const _main = document.createElement('div');
     _main.classList.add('main');
     const _footer = document.createElement('div');
