@@ -8,11 +8,11 @@ const createInterfacer = () => {
 
     const _PM = createProjectMan();
     const _defaultProject = createProject('Default');
+    _defaultProject.addTask(data.task1);
     _PM.addProject(_defaultProject);
     
 
     const _UI = createUI(document.body);
-    _UI.refreshSidebar(_PM.getProjects());
 
     const pForm = document.querySelector('.project-form-btn');
     const pValid = document.querySelector('.create-project-btn');
@@ -21,6 +21,20 @@ const createInterfacer = () => {
     const tForm = 'To implement'; 
     const tValid = 'To implement';
     const tCancel = 'To implement';
+
+    const refreshProjectsEvent = () => {
+        _UI.refreshSidebar(_PM.getProjects());
+        const projectsNode = document.querySelectorAll('.side-project');
+        
+        projectsNode.forEach(project => {
+            const projectID = Number(project.getAttribute('id').substring(1));
+            project.addEventListener('click', () =>_UI.refreshMain(_PM, projectID));
+            // console.log(`This is project ${project.getAttribute('id').substring(1)}`);
+        })
+    }
+
+    refreshProjectsEvent();
+
 
     // On "Add project" btn click
     // Show project form and disable btns (add all relevant btns to disable)
@@ -49,7 +63,7 @@ const createInterfacer = () => {
             _UI.hideForm('project');
             const newProj = createProject(inputName);
             _PM.addProject(newProj);
-            _UI.refreshSidebar(_PM.getProjects());
+            refreshProjectsEvent();
             _UI.hideForm('project');
             document.querySelector('.base-page-container').classList.remove('unclickable');
         }

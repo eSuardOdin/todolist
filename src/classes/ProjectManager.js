@@ -15,6 +15,8 @@ const createProjectMan = (focusedProject) => {
     }
     const getProjects = () => _projects;
 
+    const getSingleProject = (index) => _projects[index];
+
     const getFocusedProject = () => _focusedProject;
 
     const setFocusedProject = (project) => _focusedProject = project;
@@ -22,6 +24,7 @@ const createProjectMan = (focusedProject) => {
         addProject,
         removeProject,
         getProjects,
+        getSingleProject,
         getFocusedProject,
         setFocusedProject,
     }

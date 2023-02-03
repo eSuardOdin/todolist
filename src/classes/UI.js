@@ -14,6 +14,7 @@ const createUI = (body) => {
         <ul class="project-list"></ul>
         <button class="project-form-btn">Add Project</button>`;
     const _main = document.createElement('div');
+    _main.innerHTML = '<div class="main-project-title">';
     _main.classList.add('main');
     const _footer = document.createElement('div');
 
@@ -58,6 +59,15 @@ const createUI = (body) => {
         });
     };
 
+    const refreshMain = (projectManager, index) => {
+        _main.innerHTML = '';
+        const title = projectManager.getSingleProject(index).getName();
+        const message = document.createElement('h1');
+        message.innerText = title;
+        message.classList.add('main-project-title');
+        _main.appendChild(message);
+    };
+
     const showForm = (type) => {
         if(type === 'project') {
             _projectFormContainer.classList.remove('hidden');
@@ -78,6 +88,7 @@ const createUI = (body) => {
 
     return{
         refreshSidebar, 
+        refreshMain,
         showForm,
         hideForm,
         print
