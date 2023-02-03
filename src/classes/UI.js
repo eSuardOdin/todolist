@@ -65,9 +65,22 @@ const createUI = (body) => {
         }
     }; 
 
+    const hideForm = (type) => {
+        if(type === 'project') {
+            _projectFormContainer.classList.add('hidden');
+            _container.classList.remove('blur'); 
+        }
+    }; 
+
+    const print = (element, value) => {
+        element.innerText = value;
+    }
+
     return{
         refreshSidebar, 
         showForm,
+        hideForm,
+        print
     }
 };
 
