@@ -29,7 +29,7 @@ const createUI = (body) => {
         _projectFormContainer.classList.add('hidden');
 
         _projectFormContainer.innerHTML = `
-        <p class="project-form-title">Create a new project : </p>
+        <p class="form-title">Create a new project : </p>
         <form action="#">
             <label for="project-name">Project name : </label>
             <input type="text" name="project-name" id="project-name">
@@ -40,6 +40,39 @@ const createUI = (body) => {
             <button class="cancel-project-btn">Cancel</button>
         </div>
     `;
+
+// ---------------------
+    // Task form :
+    const _taskFormContainer = document.createElement('div');
+    _taskFormContainer.classList.add('form-container');
+    // _taskFormContainer.classList.add('hidden');
+    _taskFormContainer.innerHTML = `
+    <p class="form-title">Create a task</p>
+    <form class="task-form" action="#">
+    <div>
+        <label for="task-title">Task title : </label>
+        <input type="text" name="task-title" id="task-title">
+    </div>
+
+    <div>
+        <label for="task-description">Description : </label>
+        <input type="text" name="task-description" id="task-description">
+    </div>
+
+    <div>
+        <label for="task-due-date">Due date : </label>
+        <input type="date"></input>
+    </div>
+
+    </form>
+
+    <p class="task-error"></p>
+    <div>
+        <button class="create-task-btn">Create Task</button>
+        <button class="cancel-task-btn">Cancel</button>
+    </div>
+    `
+// -----------------------
     
     _container.appendChild(_header);
     _container.appendChild(_sidebar);
@@ -48,6 +81,7 @@ const createUI = (body) => {
     
     _body.appendChild(_container);
     _body.appendChild(_projectFormContainer);
+    _body.appendChild(_taskFormContainer);
     // #endregion
 
     const refreshSidebar = (projects) => {

@@ -144,12 +144,17 @@ align-items: center;
 
 gap: 20px;
 }
-.project-form-title {
+.form-title {
     font-size: 1.5rem;
     font-weight: 600;
 }
 
-
+.task-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 .tasks-viewer {
     display: flex;
