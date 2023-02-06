@@ -10,7 +10,7 @@ const createInterfacer = () => {
     const _defaultProject = createProject('Default');
     _defaultProject.addTask(data.task1);
     _PM.addProject(_defaultProject);
-    
+
 
     const _UI = createUI(document.body);
 
@@ -29,7 +29,7 @@ const createInterfacer = () => {
     const refreshProjectsEvent = () => {
         _UI.refreshSidebar(_PM.getProjects());
         const projectsNode = document.querySelectorAll('.side-project');
-        
+
         projectsNode.forEach(project => {
             // Get index of the project
             const projectID = Number(project.getAttribute('id').substring(1));
@@ -42,14 +42,22 @@ const createInterfacer = () => {
         })
     }
 
+    const refreshMainEvents = () => {
+        _UI.refreshMain(_PM, 0);
+        tForm.addEventListener('click', () => {
+            _UI.print(document.querySelector('.task-error'), '');
+            _UI.showForm('task');
+            document.querySelector('.base-page-container').classList.add('unclickable');
+        });
+    }
     // Init basic layout
     refreshProjectsEvent();
-    _UI.refreshMain(_PM, 0);
+    refreshMainEvents();
 
-//   O-------------------------O 
-//   |     PROJECT EVENTS      |
-//   O-------------------------O
-// 
+    //   O-------------------------O 
+    //   |     PROJECT EVENTS      |
+    //   O-------------------------O
+    // 
     // On "Add project" btn click
     // Show project form and disable btns (add all relevant btns to disable)
     pForm.addEventListener('click', () => {
@@ -66,11 +74,11 @@ const createInterfacer = () => {
         let isAlreadyExists = false;
         const inputName = document.querySelector('#project-name').value;
         _PM.getProjects().forEach(project => {
-            if(inputName === project.getName()) {
+            if (inputName === project.getName()) {
                 isAlreadyExists = true;
             }
         });
-        if(isAlreadyExists){
+        if (isAlreadyExists) {
             _UI.print(document.querySelector('.project-error'), 'This project already exists');
         }
         else {
@@ -92,19 +100,19 @@ const createInterfacer = () => {
 
 
 
-//   O----------------------O 
-//   |     TASK EVENTS      |
-//   O----------------------O
+    //   O----------------------O 
+    //   |     TASK EVENTS      |
+    //   O----------------------O
 
 
     // Show form
-    tForm.addEventListener('click', () => {
-        console.log('hello');
-    });
+    // tForm.addEventListener('click', () => {
+    //     console.log('hello');
+    // });
 
 
 
-    return{};
+    return {};
 }
 
 

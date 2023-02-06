@@ -14,11 +14,17 @@ const createUI = (body) => {
         <ul class="project-list"></ul>
         <button class="project-form-btn">Add Project</button>`;
     const _main = document.createElement('div');
-    _main.innerHTML = `
+    
+    const _dynamicMain = document.createElement('div');
+    _dynamicMain.innerHTML = `
     <h1 class="main-project-title"></h1>
     <div class="main-tasks-container"></div>
-    <button class="task-form-btn">Add a task</button>
     `;
+    const _taskButton = document.createElement('button');
+    _taskButton.classList.add("task-form-btn");
+    _taskButton.innerText = "Add a task";
+    _main.appendChild(_dynamicMain);
+    _main.appendChild(_taskButton);
     _main.classList.add('main');
     const _footer = document.createElement('div');
     _footer.classList.add('footer');
@@ -51,19 +57,30 @@ const createUI = (body) => {
     <form class="task-form" action="#">
     <div>
         <label for="task-title">Task title : </label>
-        <input type="text" name="task-title" id="task-title">
+        <input required type="text" name="task-title" id="task-title">
     </div>
 
     <div>
         <label for="task-description">Description : </label>
-        <input type="text" name="task-description" id="task-description">
+        <textarea id="task-description" name="task-description" rows="4" cols="50">
+        </textarea>
     </div>
 
     <div>
         <label for="task-due-date">Due date : </label>
-        <input type="date"></input>
+        <input required type="date"></input>
     </div>
 
+    <div>
+        <label for="task-priority">Priority : </label>
+        <select required name="task-priority" id="task-priority">
+            <option value="1">Higher</option>
+            <option value="2">High</option>
+            <option value="3">Medium</option>
+            <option value="4">Low</option>
+            <option value="5">Lower</option>
+        </select>
+    </div>
     </form>
 
     <p class="task-error"></p>
@@ -99,10 +116,9 @@ const createUI = (body) => {
     };
 
     const refreshMain = (projectManager, index) => {
-        _main.innerHTML = `
+        _dynamicMain.innerHTML = `
         <h1 class="main-project-title"></h1>
         <div class="main-tasks-container"></div>
-        <button class="task-form-btn">Add a task</button>
         `;
         const title = projectManager.getSingleProject(index).getName();
         const message = document.querySelector('.main-project-title');
@@ -113,6 +129,9 @@ const createUI = (body) => {
         if(type === 'project') {
             _projectFormContainer.classList.remove('hidden');
             _container.classList.add('blur'); 
+        } else if (type === 'task') {
+            _taskFormContainer.classList.remove('hidden');
+            _container.classList.add('blur');  
         }
     }; 
 
