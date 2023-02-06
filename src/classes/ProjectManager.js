@@ -1,7 +1,7 @@
-const createProjectMan = (focusedProject) => {
+const createProjectMan = () => {
     const _projects = [];
 
-    let _focusedProject = focusedProject;
+    let _focusedProject = 0;
     // Add a project
     const addProject = (project) => {
         _projects.push(project);

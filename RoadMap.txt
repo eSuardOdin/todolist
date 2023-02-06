@@ -1,0 +1,17 @@
+06/02 : 
+
+- Added projectManager.focusedProject changing on click.
+
+
+
+
+----------------------------------------------------------------------------------
+
+ 
+To do next : 
+
+- Basic HTML layout of the main section
+- Change it on click
+- Adding a task to a project
+- create the task form layout 
+- handle click on task form btn

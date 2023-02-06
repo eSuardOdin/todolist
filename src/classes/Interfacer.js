@@ -22,19 +22,29 @@ const createInterfacer = () => {
     const tValid = 'To implement';
     const tCancel = 'To implement';
 
+
+    /**
+     * Add event listener on each sidebar project.
+     */
     const refreshProjectsEvent = () => {
         _UI.refreshSidebar(_PM.getProjects());
         const projectsNode = document.querySelectorAll('.side-project');
         
         projectsNode.forEach(project => {
+            // Get index of the project
             const projectID = Number(project.getAttribute('id').substring(1));
-            project.addEventListener('click', () =>_UI.refreshMain(_PM, projectID));
-            // console.log(`This is project ${project.getAttribute('id').substring(1)}`);
+            project.addEventListener('click', () => {
+                _UI.refreshMain(_PM, projectID);
+                _PM.setFocusedProject(projectID);
+                console.log(`focused project is ${_PM.getSingleProject(_PM.getFocusedProject()).getName()}`);
+
+            });
         })
     }
 
+    // Init basic layout
     refreshProjectsEvent();
-
+    _UI.refreshMain(_PM, 0);
 
     // On "Add project" btn click
     // Show project form and disable btns (add all relevant btns to disable)

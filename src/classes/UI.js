@@ -14,9 +14,14 @@ const createUI = (body) => {
         <ul class="project-list"></ul>
         <button class="project-form-btn">Add Project</button>`;
     const _main = document.createElement('div');
-    _main.innerHTML = '<div class="main-project-title">';
+    _main.innerHTML = `
+    <h1 class="main-project-title"></h1>
+    <div class="main-tasks-container"></div>
+    <button class="task-form-btn">Add a task</button>
+    `;
     _main.classList.add('main');
     const _footer = document.createElement('div');
+    _footer.classList.add('footer');
 
     // Creating hidden elements (need to add task form)
     const _projectFormContainer = document.createElement('div');
@@ -60,12 +65,14 @@ const createUI = (body) => {
     };
 
     const refreshMain = (projectManager, index) => {
-        _main.innerHTML = '';
+        _main.innerHTML = `
+        <h1 class="main-project-title"></h1>
+        <div class="main-tasks-container"></div>
+        <button class="task-form-btn">Add a task</button>
+        `;
         const title = projectManager.getSingleProject(index).getName();
-        const message = document.createElement('h1');
+        const message = document.querySelector('.main-project-title');
         message.innerText = title;
-        message.classList.add('main-project-title');
-        _main.appendChild(message);
     };
 
     const showForm = (type) => {
