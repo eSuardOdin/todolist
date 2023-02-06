@@ -45,7 +45,7 @@ const createUI = (body) => {
     // Task form :
     const _taskFormContainer = document.createElement('div');
     _taskFormContainer.classList.add('form-container');
-    // _taskFormContainer.classList.add('hidden');
+    _taskFormContainer.classList.add('hidden');
     _taskFormContainer.innerHTML = `
     <p class="form-title">Create a task</p>
     <form class="task-form" action="#">
@@ -71,7 +71,7 @@ const createUI = (body) => {
         <button class="create-task-btn">Create Task</button>
         <button class="cancel-task-btn">Cancel</button>
     </div>
-    `
+    `;
 // -----------------------
     
     _container.appendChild(_header);

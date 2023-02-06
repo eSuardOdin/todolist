@@ -18,9 +18,9 @@ const createInterfacer = () => {
     const pValid = document.querySelector('.create-project-btn');
     const pCancel = document.querySelector('.cancel-project-btn');
 
-    const tForm = 'To implement'; 
-    const tValid = 'To implement';
-    const tCancel = 'To implement';
+    const tForm = document.querySelector('.task-form-btn');
+    const tValid = document.querySelector('.create-task-btn');
+    const tCancel = document.querySelector('.cancel-task-btn');
 
 
     /**
@@ -46,6 +46,10 @@ const createInterfacer = () => {
     refreshProjectsEvent();
     _UI.refreshMain(_PM, 0);
 
+//   O-------------------------O 
+//   |     PROJECT EVENTS      |
+//   O-------------------------O
+// 
     // On "Add project" btn click
     // Show project form and disable btns (add all relevant btns to disable)
     pForm.addEventListener('click', () => {
@@ -84,6 +88,21 @@ const createInterfacer = () => {
         _UI.hideForm('project');
         document.querySelector('.base-page-container').classList.remove('unclickable');
     })
+
+
+
+
+//   O----------------------O 
+//   |     TASK EVENTS      |
+//   O----------------------O
+
+
+    // Show form
+    tForm.addEventListener('click', () => {
+        console.log('hello');
+    });
+
+
 
     return{};
 }
