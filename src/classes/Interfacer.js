@@ -105,10 +105,33 @@ const createInterfacer = () => {
     //   O----------------------O
 
 
-    // Show form
-    // tForm.addEventListener('click', () => {
-    //     console.log('hello');
-    // });
+    // Check if a task is valid
+    const isTaskValid = (task, projectManager = _PM) => {
+        const title = document.getElementById('task-title').value;
+        const description = document.getElementById('task-description').value;
+        const dueDate = new Date(document.getElementById('task-due-date').value);
+        const priority = Number(document.getElementById('task-priority').value);
+
+        // Check if date is ok
+
+
+        // Check if task name already existing in this project
+
+        const newTask = createTask(title, description, dueDate, priority, null, false, false); 
+        console.log(newTask);
+    };
+
+    // Add task
+    tValid.addEventListener('click', () => {
+        console.log('click');
+        isTaskValid();
+    });
+
+
+    tCancel.addEventListener('click', () => {
+        _UI.hideForm('task');
+        document.querySelector('.base-page-container').classList.remove('unclickable');
+    });
 
 
 

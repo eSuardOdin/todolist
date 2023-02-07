@@ -17,4 +17,9 @@ To do next :
 - handle click on task form btn
 
 
-- IMPORTANT : Event on task form btn not working
+
+
+----------------------------------------------------------------------------------
+
+Now on :
+- Task creation handling in interfacer

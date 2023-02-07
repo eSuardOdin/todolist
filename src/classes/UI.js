@@ -62,13 +62,12 @@ const createUI = (body) => {
 
     <div>
         <label for="task-description">Description : </label>
-        <textarea id="task-description" name="task-description" rows="4" cols="50">
-        </textarea>
+        <textarea id="task-description" name="task-description" rows="3" cols="30"></textarea>
     </div>
 
     <div>
         <label for="task-due-date">Due date : </label>
-        <input required type="date"></input>
+        <input required id="task-due-date" name="task-due-date" type="date"></input>
     </div>
 
     <div>
@@ -139,6 +138,9 @@ const createUI = (body) => {
         if(type === 'project') {
             _projectFormContainer.classList.add('hidden');
             _container.classList.remove('blur'); 
+        } else if (type === 'task') {
+            _taskFormContainer.classList.add('hidden');
+            _container.classList.remove('blur');  
         }
     }; 
 
