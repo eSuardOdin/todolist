@@ -24,22 +24,24 @@ const createInterfacer = () => {
 
 
     
-    const refreshMainEvents = (pm, ind) => {
+    const interfacerRefreshMain = (pm, ind) => {
         _UI.refreshMain(pm, ind);
         const container = document.querySelector('.main-tasks-container');
         container.innerHTML = '';
         pm.getSingleProject(pm.getFocusedProject()).getAllTasks().forEach(task => {
-            const taskLine = document.createElement('div');
-            taskLine.innerHTML = `
-            <h3>${task.getTitle()}</h3>
-            <ul>
-            <li>Due date : ${task.getDueDate()}</li>
-            <li>Priority : ${task.getPriority()}</li>
-            </ul>
-            `;
-            // console.log(taskLine.innerHTML);
-            container.appendChild(taskLine);
-            // console.log(container.innerHTML);
+            // const taskLine = document.createElement('div');
+            // taskLine.innerHTML = `
+            // <h3>${task.getTitle()}</h3>
+            // <ul>
+            // <li>Due date : ${task.getDueDate()}</li>
+            // <li>Priority : ${task.getPriority()}</li>
+            // </ul>
+            // `;
+            // // console.log(taskLine.innerHTML);
+            // container.appendChild(taskLine);
+            // // console.log(container.innerHTML);
+
+            container.appendChild(_UI.printTask(task));
         })
         tForm.addEventListener('click', () => {
             _UI.print(document.querySelector('.task-error'), '');
@@ -61,8 +63,8 @@ const createInterfacer = () => {
             // Get index of the project
             const projectID = Number(project.getAttribute('id').substring(1));
             project.addEventListener('click', () => {
-                refreshMainEvents(_PM, projectID);
                 _PM.setFocusedProject(projectID);
+                interfacerRefreshMain(_PM, projectID);
                 console.log(`focused project is ${_PM.getSingleProject(_PM.getFocusedProject()).getName()}`);
 
             });
@@ -74,7 +76,7 @@ const createInterfacer = () => {
 
     // Init basic layout
     refreshProjectsEvent();
-    refreshMainEvents(_PM, 0);
+    interfacerRefreshMain(_PM, 0);
 
     //   O-------------------------O 
     //   |     PROJECT EVENTS      |
@@ -175,7 +177,7 @@ const createInterfacer = () => {
             _PM.getSingleProject(_PM.getFocusedProject()).getAllTasks().forEach(task => {console.log(task.getTitle())});
             // ------------------------------
 
-            refreshMainEvents(_PM, _PM.getFocusedProject());
+            interfacerRefreshMain(_PM, _PM.getFocusedProject());
             _UI.hideForm('task');
             document.querySelector('.base-page-container').classList.remove('unclickable');
 

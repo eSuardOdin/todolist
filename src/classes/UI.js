@@ -148,12 +148,62 @@ const createUI = (body) => {
         element.innerText = value;
     }
 
+    const printTask = (task) => {
+        const container = document.createElement('div');
+        container.classList.add('task-container');
+        const title = task.getTitle();
+        let prio;
+        switch (Number(task.getPriority())) {
+            case 1:
+                prio = "Highest";
+                break;
+            case 2:
+                prio = "High";
+                break;
+            case 3:
+                prio = "Medium";
+                break;
+            case 4:
+                prio = "Low";
+                break;
+            default:
+                prio = "Lowest"
+                break;
+        }
+        const month = task.getDueDate().getMonth()+1;
+        const day = task.getDueDate().getDate();
+        const year = task.getDueDate().getFullYear();
+
+        const titleTask = document.createElement('p');
+        titleTask.classList.add('title-task');
+        titleTask.innerText = title;
+
+        const priorityTask = document.createElement('p');
+        priorityTask.classList.add('priority-task');
+        priorityTask.innerText = prio;
+
+        const dateTask = document.createElement('p');
+        dateTask.classList.add('date-task');
+        dateTask.innerText = `Until the ${month}/${day}/${year}`;
+
+        const iconTask = document.createElement('p');
+        iconTask.classList.add('icon-task');
+        iconTask.innerText = 'X / O';
+
+        container.appendChild(titleTask);
+        container.appendChild(priorityTask);
+        container.appendChild(dateTask);
+        container.appendChild(iconTask);
+        
+        return container;
+    }
     return{
         refreshSidebar, 
         refreshMain,
         showForm,
         hideForm,
-        print
+        print,
+        printTask
     }
 };
 

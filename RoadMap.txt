@@ -2,7 +2,8 @@
 
 - Added projectManager.focusedProject changing on click.
 
-
+07/02
+- Added can add task to a specific project and display in main tab
 
 
 ----------------------------------------------------------------------------------
@@ -10,11 +11,6 @@
  
 To do next : 
 
-- Basic HTML layout of the main section
-- Change it on click
-- Adding a task to a project
-- create the task form layout -> almost done, need to handle error and success
-- handle click on task form btn
 
 
 
@@ -22,4 +18,4 @@ To do next :
 ----------------------------------------------------------------------------------
 
 Now on :
-- BUG : When i create a task on a project then add a project, switch to it, tasks are given to it and the original one loses its tasks
+- Styling task tab
