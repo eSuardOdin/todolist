@@ -119,9 +119,9 @@ const createUI = (body) => {
         <h1 class="main-project-title"></h1>
         <div class="main-tasks-container"></div>
         `;
-        const title = projectManager.getSingleProject(index).getName();
-        const message = document.querySelector('.main-project-title');
-        message.innerText = title;
+        const projectTitle = projectManager.getSingleProject(index).getName();
+        const title = document.querySelector('.main-project-title');
+        title.innerText = projectTitle;
     };
 
     const showForm = (type) => {

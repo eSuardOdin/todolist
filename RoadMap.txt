@@ -22,4 +22,4 @@ To do next :
 ----------------------------------------------------------------------------------
 
 Now on :
-- Task creation handling in interfacer
+- BUG : When i create a task on a project then add a project, switch to it, tasks are given to it and the original one loses its tasks

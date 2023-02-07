@@ -23,6 +23,33 @@ const createInterfacer = () => {
     const tCancel = document.querySelector('.cancel-task-btn');
 
 
+    
+    const refreshMainEvents = (pm, ind) => {
+        _UI.refreshMain(pm, ind);
+        const container = document.querySelector('.main-tasks-container');
+        container.innerHTML = '';
+        pm.getSingleProject(pm.getFocusedProject()).getAllTasks().forEach(task => {
+            const taskLine = document.createElement('div');
+            taskLine.innerHTML = `
+            <h3>${task.getTitle()}</h3>
+            <ul>
+            <li>Due date : ${task.getDueDate()}</li>
+            <li>Priority : ${task.getPriority()}</li>
+            </ul>
+            `;
+            // console.log(taskLine.innerHTML);
+            container.appendChild(taskLine);
+            // console.log(container.innerHTML);
+        })
+        tForm.addEventListener('click', () => {
+            _UI.print(document.querySelector('.task-error'), '');
+            _UI.showForm('task');
+            document.querySelector('.base-page-container').classList.add('unclickable');
+        });
+    }
+
+
+    
     /**
      * Add event listener on each sidebar project.
      */
@@ -34,7 +61,7 @@ const createInterfacer = () => {
             // Get index of the project
             const projectID = Number(project.getAttribute('id').substring(1));
             project.addEventListener('click', () => {
-                _UI.refreshMain(_PM, projectID);
+                refreshMainEvents(_PM, projectID);
                 _PM.setFocusedProject(projectID);
                 console.log(`focused project is ${_PM.getSingleProject(_PM.getFocusedProject()).getName()}`);
 
@@ -42,17 +69,12 @@ const createInterfacer = () => {
         })
     }
 
-    const refreshMainEvents = () => {
-        _UI.refreshMain(_PM, 0);
-        tForm.addEventListener('click', () => {
-            _UI.print(document.querySelector('.task-error'), '');
-            _UI.showForm('task');
-            document.querySelector('.base-page-container').classList.add('unclickable');
-        });
-    }
+
+
+
     // Init basic layout
     refreshProjectsEvent();
-    refreshMainEvents();
+    refreshMainEvents(_PM, 0);
 
     //   O-------------------------O 
     //   |     PROJECT EVENTS      |
@@ -106,25 +128,60 @@ const createInterfacer = () => {
 
 
     // Check if a task is valid
-    const isTaskValid = (task, projectManager = _PM) => {
+    const isTaskValid = (task) => {
         const title = document.getElementById('task-title').value;
-        const description = document.getElementById('task-description').value;
         const dueDate = new Date(document.getElementById('task-due-date').value);
-        const priority = Number(document.getElementById('task-priority').value);
 
         // Check if date is ok
-
+        const now = new Date().getTime();
+        if (now > dueDate.getTime()) {
+            return {valid: false, err: 'Date error'};
+        }
 
         // Check if task name already existing in this project
-
-        const newTask = createTask(title, description, dueDate, priority, null, false, false); 
-        console.log(newTask);
+        let isAlreadyExists = false;
+        const inputName = document.querySelector('#task-title').value;
+        _PM.getSingleProject(_PM.getFocusedProject()).getAllTasks().forEach(task => {
+            if (inputName === task.getTitle()) {
+                isAlreadyExists = true;
+            }
+        });
+        if(isAlreadyExists) {
+            return {valid: false, err: 'Name error'};
+        }
+        return {valid: true, err:''};
     };
 
-    // Add task
+
+       
+    // ---------------------------------//
+    // ---------------------------------//
+    //            Add task              //
+    // ---------------------------------//
+    // ---------------------------------//
     tValid.addEventListener('click', () => {
-        console.log('click');
-        isTaskValid();
+        console.log(isTaskValid());
+        if(isTaskValid().valid) {
+            const title = document.getElementById('task-title').value;
+            const description = document.getElementById('task-description').value;
+            const dueDate = new Date(document.getElementById('task-due-date').value);
+            const priority = Number(document.getElementById('task-priority').value);
+            const newTask = createTask(title, description, dueDate, priority, null);
+            _PM.getSingleProject(_PM.getFocusedProject()).addTask(newTask);
+            
+            // ------------------------------
+            // DEBUG
+            console.log(`${_PM.getSingleProject(_PM.getFocusedProject()).getName()} tasks : `);
+            _PM.getSingleProject(_PM.getFocusedProject()).getAllTasks().forEach(task => {console.log(task.getTitle())});
+            // ------------------------------
+
+            refreshMainEvents(_PM, _PM.getFocusedProject());
+            _UI.hideForm('task');
+            document.querySelector('.base-page-container').classList.remove('unclickable');
+
+        } else {
+            _UI.print(document.querySelector('.task-error'), isTaskValid().err);
+        }
     });
 
 
