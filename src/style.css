@@ -7,7 +7,22 @@
     display: none;
 }
 
+/* 
+-----------------------
 
+    ANIMATIONS
+    
+------------------------
+*/
+
+@keyframes colorchange {
+    0% {
+        background-color: beige;
+    }
+    100% {
+        background-color: rgb(102, 204, 207);
+    }
+  }
 /* 
 -----------------------
 
@@ -21,6 +36,8 @@
     grid-template-columns: 200px 1fr;
     grid-template-rows: 100px 1fr 40px;
     height: 100vh;
+
+    cursor: default;
 }
 
 .blur{
@@ -99,13 +116,18 @@
 .main-tasks-container {
     margin: 10px;
     padding: 10px;
-    background-color: rgb(216, 216, 216);
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 .task-container {
     display: grid;
     grid-template-columns: 200px 70px 1fr 50px;
+    cursor: pointer;
+    transition: 0.8s;
+}
+.task-container:hover {
+    background-color: rgb(102, 204, 207);
 }
 .title-task {
     grid-column: 1/2;

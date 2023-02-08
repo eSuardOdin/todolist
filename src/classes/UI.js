@@ -148,14 +148,15 @@ const createUI = (body) => {
         element.innerText = value;
     }
 
-    const printTask = (task) => {
+    const printTask = (task, index) => {
         const container = document.createElement('div');
         container.classList.add('task-container');
+        container.setAttribute('id', `t${index}`)
         const title = task.getTitle();
         let prio;
         switch (Number(task.getPriority())) {
             case 1:
-                prio = "Highest";
+                prio = "Higher";
                 break;
             case 2:
                 prio = "High";
@@ -167,7 +168,7 @@ const createUI = (body) => {
                 prio = "Low";
                 break;
             default:
-                prio = "Lowest"
+                prio = "Lower"
                 break;
         }
         const month = task.getDueDate().getMonth()+1;

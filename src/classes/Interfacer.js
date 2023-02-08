@@ -23,25 +23,19 @@ const createInterfacer = () => {
     const tCancel = document.querySelector('.cancel-task-btn');
 
 
-    
+    // Refresh tasks for a project
     const interfacerRefreshMain = (pm, ind) => {
         _UI.refreshMain(pm, ind);
         const container = document.querySelector('.main-tasks-container');
         container.innerHTML = '';
+        let index = 0;
         pm.getSingleProject(pm.getFocusedProject()).getAllTasks().forEach(task => {
-            // const taskLine = document.createElement('div');
-            // taskLine.innerHTML = `
-            // <h3>${task.getTitle()}</h3>
-            // <ul>
-            // <li>Due date : ${task.getDueDate()}</li>
-            // <li>Priority : ${task.getPriority()}</li>
-            // </ul>
-            // `;
-            // // console.log(taskLine.innerHTML);
-            // container.appendChild(taskLine);
-            // // console.log(container.innerHTML);
-
-            container.appendChild(_UI.printTask(task));
+            const taskElement = _UI.printTask(task, index);
+            taskElement.addEventListener('click', () => {
+                console.log('click');
+            });
+            container.appendChild(taskElement);
+            index ++;
         })
         tForm.addEventListener('click', () => {
             _UI.print(document.querySelector('.task-error'), '');
