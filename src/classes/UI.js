@@ -75,7 +75,7 @@ const createUI = (body) => {
         <select required name="task-priority" id="task-priority">
             <option value="1">Higher</option>
             <option value="2">High</option>
-            <option value="3">Medium</option>
+            <option selected value="3">Medium</option>
             <option value="4">Low</option>
             <option value="5">Lower</option>
         </select>

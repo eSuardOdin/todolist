@@ -29,10 +29,12 @@ const createInterfacer = () => {
         const container = document.querySelector('.main-tasks-container');
         container.innerHTML = '';
         let index = 0;
-        pm.getSingleProject(pm.getFocusedProject()).getAllTasks().forEach(task => {
+        const focusedProject = pm.getSingleProject(pm.getFocusedProject());
+        focusedProject.getAllTasks().forEach(task => {
             const taskElement = _UI.printTask(task, index);
             taskElement.addEventListener('click', () => {
-                console.log('click');
+                const taskIndex = taskElement.getAttribute('id').substring(1);
+                console.log(focusedProject.getTask(taskIndex).getTitle());
             });
             container.appendChild(taskElement);
             index ++;
@@ -75,9 +77,10 @@ const createInterfacer = () => {
     //   O-------------------------O 
     //   |     PROJECT EVENTS      |
     //   O-------------------------O
-    // 
+     
     // On "Add project" btn click
     // Show project form and disable btns (add all relevant btns to disable)
+
     pForm.addEventListener('click', () => {
         // reset input and error msg
         document.querySelector('#project-name').value = '';
