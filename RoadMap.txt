@@ -20,4 +20,4 @@ To do next :
 ----------------------------------------------------------------------------------
 
 Now on :
-- Styling task tab
+- Figure why clear and delete task not working (event listening suspicious)

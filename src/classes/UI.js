@@ -187,14 +187,19 @@ const createUI = (body) => {
         dateTask.classList.add('date-task');
         dateTask.innerText = `Until the ${month}/${day}/${year}`;
 
-        const iconTask = document.createElement('p');
-        iconTask.classList.add('icon-task');
-        iconTask.innerText = 'X / O';
+        const iconClearTask = document.createElement('p');
+        iconClearTask.classList.add('icon-clear-task');
+        iconClearTask.innerText = 'Clear';
+
+        const iconDeleteTask = document.createElement('p');
+        iconDeleteTask.classList.add('icon-delete-task');
+        iconDeleteTask.innerText = 'Delete';
 
         container.appendChild(titleTask);
         container.appendChild(priorityTask);
         container.appendChild(dateTask);
-        container.appendChild(iconTask);
+        container.appendChild(iconClearTask);
+        container.appendChild(iconDeleteTask);
         
         return container;
     }

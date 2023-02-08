@@ -22,21 +22,42 @@ const createInterfacer = () => {
     const tValid = document.querySelector('.create-task-btn');
     const tCancel = document.querySelector('.cancel-task-btn');
 
+    const getId = (element) => element.getAttribute('id').substring(1);
+
+
+   
 
     // Refresh tasks for a project
     const interfacerRefreshMain = (pm, ind) => {
         _UI.refreshMain(pm, ind);
+        // Delete old tasks
         const container = document.querySelector('.main-tasks-container');
         container.innerHTML = '';
+        // In order to iterate trough all focusedProject.tasks
         let index = 0;
         const focusedProject = pm.getSingleProject(pm.getFocusedProject());
         focusedProject.getAllTasks().forEach(task => {
             const taskElement = _UI.printTask(task, index);
-            taskElement.addEventListener('click', () => {
-                const taskIndex = taskElement.getAttribute('id').substring(1);
+            
+            
+
+            taskElement.addEventListener('click', (e) => {
+                if( e.target !== taskElement) return;
+                const taskIndex = getId(taskElement);
                 console.log(focusedProject.getTask(taskIndex).getTitle());
             });
             container.appendChild(taskElement);
+            // Add clear event listener
+            const clearBtn = document.querySelector('.icon-clear-task');
+            clearBtn.addEventListener('click', () => {
+                clearTask();
+            });
+
+            const deleteBtn = document.querySelector('.icon-delete-task');
+            deleteBtn.addEventListener('click', () => {
+                deleteTask(index, focusedProject);
+            });
+
             index ++;
         })
         tForm.addEventListener('click', () => {
@@ -46,6 +67,15 @@ const createInterfacer = () => {
         });
     }
 
+    const clearTask = () => {
+        console.log('clear');
+    };
+
+    const deleteTask = (taskId, project) => {
+        console.log(taskId);
+        project.removeTask(taskId);
+        interfacerRefreshMain(_PM, _PM.getSingleProject(_PM.getFocusedProject()));
+    };
 
     
     /**
@@ -57,7 +87,7 @@ const createInterfacer = () => {
 
         projectsNode.forEach(project => {
             // Get index of the project
-            const projectID = Number(project.getAttribute('id').substring(1));
+            const projectID = getId(project);
             project.addEventListener('click', () => {
                 _PM.setFocusedProject(projectID);
                 interfacerRefreshMain(_PM, projectID);
@@ -127,7 +157,7 @@ const createInterfacer = () => {
 
 
     // Check if a task is valid
-    const isTaskValid = (task) => {
+    const isTaskValid = () => {
         const title = document.getElementById('task-title').value;
         const dueDate = new Date(document.getElementById('task-due-date').value);
 
