@@ -18,5 +18,5 @@ To do next :
 ----------------------------------------------------------------------------------
 
 Now on :
-- Implementing done state
-- Trying to implement expending tabs on clic
+- Extended on clic is working but I need to "unextend"
+  if clic on an extended task
