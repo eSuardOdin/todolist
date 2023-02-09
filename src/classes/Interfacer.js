@@ -12,6 +12,7 @@ const createInterfacer = () => {
     _defaultProject.addTask(data.task2);
     _defaultProject.addTask(data.task3);
     _defaultProject.addTask(data.task4);
+ 
     _PM.addProject(_defaultProject);
 
 
@@ -61,7 +62,7 @@ const createInterfacer = () => {
                 const id = btn.parentElement.getAttribute('id').substring(1);
                 deleteTask(id, _PM.getSingleProject(_PM.getFocusedProject()));
             });
-        })
+        });
 
         // For each clear btn add a clear event
         const clearBtns = document.querySelectorAll('.icon-clear-task');
@@ -69,6 +70,14 @@ const createInterfacer = () => {
             btn.addEventListener('click', () => {
                 const id = btn.parentElement.getAttribute('id').substring(1);
                 clearTask(_PM.getSingleProject(_PM.getFocusedProject()).getTask(id));
+            })
+        });
+
+        // For each extends btn
+        const extendBtns = document.querySelectorAll('.icon-extends-task');
+        extendBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                _UI.extendTask(btn.parentElement);
             })
         })
         // Event to show task form

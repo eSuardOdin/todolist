@@ -194,7 +194,7 @@ const createUI = (body) => {
 
         const dateTask = document.createElement('p');
         dateTask.classList.add('date-task');
-        dateTask.innerText = `Until the ${month}/${day}/${year}`;
+        
 
         const iconClearTask = document.createElement('p');
         if(task.getIsDone()){
@@ -203,20 +203,36 @@ const createUI = (body) => {
         else {
             iconClearTask.classList.add('icon-clear-task');
             iconClearTask.innerText = 'Clear';
+            dateTask.innerText = `Until the ${month}/${day}/${year}`;
         }
 
         const iconDeleteTask = document.createElement('p');
         iconDeleteTask.classList.add('icon-delete-task');
         iconDeleteTask.innerText = 'Delete';
 
+        const iconExtendsTask = document.createElement('p');
+        iconExtendsTask.classList.add('icon-extends-task');
+        iconExtendsTask.innerText = 'V';
+
         container.appendChild(titleTask);
         container.appendChild(priorityTask);
         container.appendChild(dateTask);
         container.appendChild(iconClearTask);
         container.appendChild(iconDeleteTask);
-        
+        container.appendChild(iconExtendsTask);
         return container;
     }
+
+    const extendTask = (taskElement) => {
+        // Debug
+        const allTasks = _dynamicMain.querySelectorAll('.task-container');
+        console.log(allTasks);
+        // Remove the previous
+        allTasks.forEach(task => {
+            task.classList.remove('extended');
+        });
+        taskElement.classList.add('extended');
+    } 
 
     const getTaskForm = () => _taskFormContainer;
     return{
@@ -227,6 +243,7 @@ const createUI = (body) => {
         print,
         printTask,
         resetTaskForm,
+        extendTask,
     }
 };
 
