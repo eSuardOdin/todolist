@@ -11,13 +11,12 @@
  
 To do next : 
 
-- Add task events
 - Expend task tab ?
-- Refresh task form ! (IMPORTANT)
 - Prevent NaN on date !!
 
 
 ----------------------------------------------------------------------------------
 
 Now on :
-- Figure why clear and delete task not working (event listening suspicious)
+- Implementing done state
+- Trying to implement expending tabs on clic

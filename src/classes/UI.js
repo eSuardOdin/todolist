@@ -1,3 +1,6 @@
+const resetTaskForm = (element) => {
+    element.reset();
+}
 const createUI = (body) => {
     
     // Instanciate base page skeleton and UI elements to manage
@@ -150,7 +153,13 @@ const createUI = (body) => {
 
     const printTask = (task, index) => {
         const container = document.createElement('div');
-        container.classList.add('task-container');
+        if(task.getIsDone()) {
+            container.classList.remove('task-container');
+            container.classList.add('task-container-done');
+        }
+        else {
+            container.classList.add('task-container');
+        }
         container.setAttribute('id', `t${index}`)
         const title = task.getTitle();
         let prio;
@@ -188,8 +197,13 @@ const createUI = (body) => {
         dateTask.innerText = `Until the ${month}/${day}/${year}`;
 
         const iconClearTask = document.createElement('p');
-        iconClearTask.classList.add('icon-clear-task');
-        iconClearTask.innerText = 'Clear';
+        if(task.getIsDone()){
+            iconClearTask.innerText = 'Task Cleared !';
+        }
+        else {
+            iconClearTask.classList.add('icon-clear-task');
+            iconClearTask.innerText = 'Clear';
+        }
 
         const iconDeleteTask = document.createElement('p');
         iconDeleteTask.classList.add('icon-delete-task');
@@ -203,13 +217,16 @@ const createUI = (body) => {
         
         return container;
     }
+
+    const getTaskForm = () => _taskFormContainer;
     return{
         refreshSidebar, 
         refreshMain,
         showForm,
         hideForm,
         print,
-        printTask
+        printTask,
+        resetTaskForm,
     }
 };
 

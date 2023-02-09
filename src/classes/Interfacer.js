@@ -9,6 +9,9 @@ const createInterfacer = () => {
     const _PM = createProjectMan();
     const _defaultProject = createProject('Default');
     _defaultProject.addTask(data.task1);
+    _defaultProject.addTask(data.task2);
+    _defaultProject.addTask(data.task3);
+    _defaultProject.addTask(data.task4);
     _PM.addProject(_defaultProject);
 
 
@@ -40,12 +43,11 @@ const createInterfacer = () => {
         focusedProject.getAllTasks().forEach(task => {
             const taskElement = _UI.printTask(task, index);
             // Handle full task
-            taskElement.addEventListener('click', (e) => {
-                // If click on something else than main-task-container -> to enhance
-                // if( e.target === taskElement) return;
-                const taskIndex = getId(taskElement);
-                console.log(focusedProject.getTask(taskIndex).getTitle());
-            });
+            // taskElement.addEventListener('click', (e) => {
+            //     // If click on something else than main-task-container -> to enhance
+            //     // if( e.target === taskElement) return;
+            //     const taskIndex = getId(taskElement);
+            // });
             container.appendChild(taskElement);
 
             index ++;
@@ -56,27 +58,42 @@ const createInterfacer = () => {
         const deleteBtns = document.querySelectorAll('.icon-delete-task');
         deleteBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                console.log(btn.parentElement.getAttribute('id'));
                 const id = btn.parentElement.getAttribute('id').substring(1);
                 deleteTask(id, _PM.getSingleProject(_PM.getFocusedProject()));
             });
         })
+
+        // For each clear btn add a clear event
+        const clearBtns = document.querySelectorAll('.icon-clear-task');
+        clearBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.parentElement.getAttribute('id').substring(1);
+                clearTask(_PM.getSingleProject(_PM.getFocusedProject()).getTask(id));
+            })
+        })
+        // Event to show task form
         tForm.addEventListener('click', () => {
             _UI.print(document.querySelector('.task-error'), '');
             _UI.showForm('task');
             document.querySelector('.base-page-container').classList.add('unclickable');
         });
+
+         
+        tCancel.addEventListener('click', () => {
+            _UI.hideForm('task');
+            document.querySelector('.base-page-container').classList.remove('unclickable');
+        });
     }
 
-    const clearTask = () => {
-        console.log('clear');
+    // Toggle task.isDone
+    const clearTask = (task) => {
+        task.setIsDone();
+        task.printTask();
+        interfacerRefreshMain(_PM, _PM.getFocusedProject())
     };
 
+    // Delete task from project and UI
     const deleteTask = (taskId, project) => {
-        // console.log(taskId);
-        // project.removeTask(taskId);
-        // interfacerRefreshMain(_PM, _PM.getSingleProject(_PM.getFocusedProject()));
-        console.log(`deleting task '${project.getTask(taskId).getTitle()}'`);
         project.removeTask(taskId);
         interfacerRefreshMain(_PM, _PM.getFocusedProject())
     };
@@ -210,17 +227,21 @@ const createInterfacer = () => {
 
             interfacerRefreshMain(_PM, _PM.getFocusedProject());
             _UI.hideForm('task');
+            _UI.resetTaskForm(document.querySelector('.task-form'));
             document.querySelector('.base-page-container').classList.remove('unclickable');
-
+            
         } else {
             _UI.print(document.querySelector('.task-error'), isTaskValid().err);
         }
+
+       
     });
 
 
     tCancel.addEventListener('click', () => {
         _UI.hideForm('task');
         document.querySelector('.base-page-container').classList.remove('unclickable');
+        _UI.resetTaskForm(document.querySelector('.task-form'));
     });
 
 

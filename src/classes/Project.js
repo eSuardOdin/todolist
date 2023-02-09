@@ -26,7 +26,7 @@ const createProject = (name) => {
 
     // Return a specific task
     const getTask = (index) => {
-        if(_tasks.length > index) {
+        if(_tasks.length >= index) {
             return _tasks[index];
         } else {
             console.error(`Error : Cannot get task at index ${index}`);
