@@ -36,29 +36,30 @@ const createInterfacer = () => {
         // In order to iterate trough all focusedProject.tasks
         let index = 0;
         const focusedProject = pm.getSingleProject(pm.getFocusedProject());
+        
         focusedProject.getAllTasks().forEach(task => {
             const taskElement = _UI.printTask(task, index);
-            
-            
-
+            // Handle full task
             taskElement.addEventListener('click', (e) => {
-                if( e.target !== taskElement) return;
+                // If click on something else than main-task-container -> to enhance
+                // if( e.target === taskElement) return;
                 const taskIndex = getId(taskElement);
                 console.log(focusedProject.getTask(taskIndex).getTitle());
             });
             container.appendChild(taskElement);
-            // Add clear event listener
-            const clearBtn = document.querySelector('.icon-clear-task');
-            clearBtn.addEventListener('click', () => {
-                clearTask();
-            });
-
-            const deleteBtn = document.querySelector('.icon-delete-task');
-            deleteBtn.addEventListener('click', () => {
-                deleteTask(index, focusedProject);
-            });
 
             index ++;
+        })
+
+
+        // For each delete btn add an event
+        const deleteBtns = document.querySelectorAll('.icon-delete-task');
+        deleteBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                console.log(btn.parentElement.getAttribute('id'));
+                const id = btn.parentElement.getAttribute('id').substring(1);
+                deleteTask(id, _PM.getSingleProject(_PM.getFocusedProject()));
+            });
         })
         tForm.addEventListener('click', () => {
             _UI.print(document.querySelector('.task-error'), '');
@@ -72,9 +73,12 @@ const createInterfacer = () => {
     };
 
     const deleteTask = (taskId, project) => {
-        console.log(taskId);
+        // console.log(taskId);
+        // project.removeTask(taskId);
+        // interfacerRefreshMain(_PM, _PM.getSingleProject(_PM.getFocusedProject()));
+        console.log(`deleting task '${project.getTask(taskId).getTitle()}'`);
         project.removeTask(taskId);
-        interfacerRefreshMain(_PM, _PM.getSingleProject(_PM.getFocusedProject()));
+        interfacerRefreshMain(_PM, _PM.getFocusedProject())
     };
 
     

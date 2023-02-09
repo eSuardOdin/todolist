@@ -14,7 +14,7 @@ To do next :
 - Add task events
 - Expend task tab ?
 - Refresh task form ! (IMPORTANT)
-
+- Prevent NaN on date !!
 
 
 ----------------------------------------------------------------------------------
