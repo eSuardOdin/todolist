@@ -133,6 +133,9 @@
     justify-content: center;
     align-items: center;
 }
+
+
+
 .task-container-done {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 100px 100px;
@@ -203,6 +206,34 @@
     font-size: 1.5rem;
 }
 
+.task-container.extended {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 50px 50px 1fr 50px;
+    cursor: pointer;
+    transition: 0.4s;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(240, 240, 233);
+    justify-content: center;
+    align-items: center;
+}
+
+.task-ext-title {}
+
+.task-ext-prio {}
+
+.task-ext-dueDate {}
+
+.task-ext-description {}
+
+.task-ext-timeleft {}
+
+.task-ext-clear-btn {}
+
+.task-ext-del-btn {}
+
+.task-ext-collapse-btn {}
 .extended {
     height: 20vh;
 }

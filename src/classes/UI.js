@@ -223,7 +223,11 @@ const createUI = (body) => {
         return container;
     }
 
-    const extendTask = (taskElement) => {
+    const printExtendedTask = (taskExtended, index)=> {
+        
+    }
+
+    const extendTask = (taskElement, task) => {
         // Debug
         const allTasks = _dynamicMain.querySelectorAll('.task-container');
         console.log(allTasks);
@@ -232,6 +236,28 @@ const createUI = (body) => {
             task.classList.remove('extended');
         });
         taskElement.classList.add('extended');
+        taskElement.innerHTML = '';
+
+        // Elements
+        const title = document.createElement('p');
+        const prio = document.createElement('p');
+        const dueDate = document.createElement('p');
+        const description = document.createElement('p');
+        const timeLeft = document.createElement('p');
+        const clearBtn = document.createElement('p');
+        const delBtn = document.createElement('p');
+        const collapseBtn = document.createElement('p');
+
+
+        // Classes
+        title.classList.add('task-ext-title');
+        prio.classList.add('task-ext-prio');
+        dueDate.classList.add('task-ext-dueDate');
+        description.classList.add('task-ext-description');
+        timeLeft.classList.add('task-ext-timeleft');
+        clearBtn.classList.add('task-ext-clear-btn');
+        delBtn.classList.add('task-ext-del-btn');
+        collapseBtn.classList.add('task-ext-collapse-btn');
     } 
 
     const getTaskForm = () => _taskFormContainer;
