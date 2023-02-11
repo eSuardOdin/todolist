@@ -18,5 +18,4 @@ To do next :
 ----------------------------------------------------------------------------------
 
 Now on :
-- Extended on clic is working but I need to "unextend"
-  if clic on an extended task
+- I use an extendedList array in interfacer, it's pushing and slicing on extend button

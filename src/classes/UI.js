@@ -117,14 +117,33 @@ const createUI = (body) => {
         });
     };
 
-    const refreshMain = (projectManager, index) => {
+    const refreshMain = (projectManager, index, extendedTasks) => {
+        console.log(extendedTasks);
         _dynamicMain.innerHTML = `
         <h1 class="main-project-title"></h1>
         <div class="main-tasks-container"></div>
         `;
+        const container = document.querySelector('.main-tasks-container');
         const projectTitle = projectManager.getSingleProject(index).getName();
         const title = document.querySelector('.main-project-title');
         title.innerText = projectTitle;
+
+        const focusedProject = projectManager.getSingleProject(projectManager.getFocusedProject());
+
+
+        let indexTask = 0;
+        focusedProject.getAllTasks().forEach(task => {
+            let taskElement;
+
+            if(extendedTasks.indexOf(indexTask) === -1) { // If element not extend
+                taskElement = printTask(task, indexTask);
+            }
+            else {
+                taskElement = printExtendedTask(task, indexTask);
+            }
+            container.appendChild(taskElement);
+            indexTask ++;
+        })
     };
 
     const showForm = (type) => {
@@ -151,8 +170,13 @@ const createUI = (body) => {
         element.innerText = value;
     }
 
+
+
     const printTask = (task, index) => {
         const container = document.createElement('div');
+        
+        
+        // Not extended
         if(task.getIsDone()) {
             container.classList.remove('task-container');
             container.classList.add('task-container-done');
@@ -185,34 +209,39 @@ const createUI = (body) => {
         const year = task.getDueDate().getFullYear();
 
         const titleTask = document.createElement('p');
-        titleTask.classList.add('title-task');
         titleTask.innerText = title;
-
+        
         const priorityTask = document.createElement('p');
         priorityTask.classList.add('priority-task');
         priorityTask.innerText = prio;
-
-        const dateTask = document.createElement('p');
-        dateTask.classList.add('date-task');
         
-
+        const dateTask = document.createElement('p');
+        
+        
         const iconClearTask = document.createElement('p');
         if(task.getIsDone()){
             iconClearTask.innerText = 'Task Cleared !';
         }
         else {
-            iconClearTask.classList.add('icon-clear-task');
             iconClearTask.innerText = 'Clear';
             dateTask.innerText = `Until the ${month}/${day}/${year}`;
         }
-
+        
         const iconDeleteTask = document.createElement('p');
-        iconDeleteTask.classList.add('icon-delete-task');
         iconDeleteTask.innerText = 'Delete';
-
+        
         const iconExtendsTask = document.createElement('p');
-        iconExtendsTask.classList.add('icon-extends-task');
         iconExtendsTask.innerText = 'V';
+        
+        
+        titleTask.classList.add('title-task');
+        dateTask.classList.add('date-task');
+        iconClearTask.classList.add('icon-clear-task');
+        iconExtendsTask.classList.add('icon-extends-task');
+        iconDeleteTask.classList.add('icon-delete-task');
+        
+
+
 
         container.appendChild(titleTask);
         container.appendChild(priorityTask);
@@ -220,24 +249,22 @@ const createUI = (body) => {
         container.appendChild(iconClearTask);
         container.appendChild(iconDeleteTask);
         container.appendChild(iconExtendsTask);
+        
+        
         return container;
     }
 
-    const printExtendedTask = (taskExtended, index)=> {
-        
-    }
-
-    const extendTask = (taskElement, task) => {
+    const printExtendedTask = (task, index) => {
         // Debug
-        const allTasks = _dynamicMain.querySelectorAll('.task-container');
-        console.log(allTasks);
-        // Remove the previous
-        allTasks.forEach(task => {
-            task.classList.remove('extended');
-        });
-        taskElement.classList.add('extended');
-        taskElement.innerHTML = '';
-
+        const container = document.createElement('div');
+        if(task.getIsDone()) {
+            container.classList.remove('task-container');
+            container.classList.add('task-container-done');
+        }
+        else {
+            container.classList.add('task-container');
+        }
+        container.setAttribute('id', `t${index}`)
         // Elements
         const title = document.createElement('p');
         let prio = document.createElement('p');
@@ -277,18 +304,31 @@ const createUI = (body) => {
                 prio.textContent = "Lower"
                 break;
         };
+        const month = task.getDueDate().getMonth()+1;
+        const day = task.getDueDate().getDate();
+        const year = task.getDueDate().getFullYear();
+        dueDate.innerText = `Until the ${month}/${day}/${year}`;
+        timeLeft.innerText = `${task.getTimeLeft().days} days and ${task.getTimeLeft().hours} hours left`
+        description.innerText = task.getDescription();
+        clearBtn.innerText = 'Clear';
+        delBtn.innerText = 'Delete';
+        collapseBtn.innerText = '^';
 
+        container.appendChild(title);
+        container.appendChild(prio);
+        container.appendChild(dueDate);
+        container.appendChild(description);
+        container.appendChild(timeLeft);
+        container.appendChild(clearBtn);
+        container.appendChild(delBtn);
+        container.appendChild(collapseBtn);
 
-        taskElement.appendChild(title);
-        taskElement.appendChild(prio);
-        taskElement.appendChild(dueDate);
-        taskElement.appendChild(description);
-        taskElement.appendChild(timeLeft);
-        taskElement.appendChild(clearBtn);
-        taskElement.appendChild(delBtn);
-        taskElement.appendChild(collapseBtn);
+        return container;
     } 
 
+    const toggleExtended = (taskElmt) => {
+        taskElmt.classList.toggle('extended');
+    }
     const getTaskForm = () => _taskFormContainer;
     return{
         refreshSidebar, 
@@ -297,8 +337,9 @@ const createUI = (body) => {
         hideForm,
         print,
         printTask,
+        printExtendedTask,
         resetTaskForm,
-        extendTask,
+        toggleExtended,
     }
 };
 

@@ -26,6 +26,9 @@ const createInterfacer = () => {
     const tValid = document.querySelector('.create-task-btn');
     const tCancel = document.querySelector('.cancel-task-btn');
 
+    const extendedList = [];
+
+    // Get the index of an HTML element (task or project)
     const getId = (element) => element.getAttribute('id').substring(1);
 
 
@@ -33,29 +36,31 @@ const createInterfacer = () => {
 
     // Refresh tasks for a project
     const interfacerRefreshMain = (pm, ind) => {
-        _UI.refreshMain(pm, ind);
-        // Delete old tasks
-        const container = document.querySelector('.main-tasks-container');
-        container.innerHTML = '';
-        // In order to iterate trough all focusedProject.tasks
-        let index = 0;
-        const focusedProject = pm.getSingleProject(pm.getFocusedProject());
+        _UI.refreshMain(pm, ind, extendedList);
         
-        focusedProject.getAllTasks().forEach(task => {
-            const taskElement = _UI.printTask(task, index);
-            // Handle full task
-            // taskElement.addEventListener('click', (e) => {
-            //     // If click on something else than main-task-container -> to enhance
-            //     // if( e.target === taskElement) return;
-            //     const taskIndex = getId(taskElement);
-            // });
-            container.appendChild(taskElement);
+        // Delete old tasks ?
+        // #region
+        // -------------------------------------------------------------------
+        // o----------------------------------------------------------------o
+        // |  Removed to go in UI.refreshMain, uncomment if not working     |
+        // o----------------------------------------------------------------o  
+        // // In order to iterate trough all focusedProject.tasks
+        // let index = 0;
+        // const focusedProject = pm.getSingleProject(pm.getFocusedProject());
+        
+        // focusedProject.getAllTasks().forEach(task => {
+        //     const taskElement = _UI.printTask(task, index);
+        //     container.appendChild(taskElement);
+        //     index ++;
+        // })
+        // -------------------------------------------------------------------
+        // #endregion
 
-            index ++;
-        })
 
 
-        // For each delete btn add an event
+
+        // -----------------------------------------------
+        // EVENTS FOR DELETE BTN
         const deleteBtns = document.querySelectorAll('.icon-delete-task');
         deleteBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -64,7 +69,11 @@ const createInterfacer = () => {
             });
         });
 
-        // For each clear btn add a clear event
+
+
+
+        // -----------------------------------------------
+        // EVENTS FOR CLEAR BTN
         const clearBtns = document.querySelectorAll('.icon-clear-task');
         clearBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -74,14 +83,34 @@ const createInterfacer = () => {
             })
         });
 
-        // For each extends btn
+        
+        
+
+
+
+        // -----------------------------------------------
+        // EVENTS FOR EXTEND BTN
         const extendBtns = document.querySelectorAll('.icon-extends-task');
         extendBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                const id = btn.parentElement.getAttribute('id').substring(1);
+                let taskElmt = btn.parentElement;
+                const id = taskElmt.getAttribute('id').substring(1);
                 const task = _PM.getSingleProject(_PM.getFocusedProject()).getTask(id);
-                console.log(id);
-                _UI.extendTask(btn.parentElement, task);
+                let container = document.querySelector('.main-tasks-container');
+
+                // console.log(extendedList.indexOf(id));
+                if(extendedList.indexOf(id) === -1) {
+                    extendedList.push(id);
+                    container = _UI.printExtendedTask(task, id);
+
+                    console.log(container.parentElement);
+                } else {
+                    extendedList.splice(extendedList.indexOf(id), 1);
+                    container = _UI.printTask(task, id);
+                    console.log(container.parentElement);
+                }
+                console.log(extendedList);
+                _UI.toggleExtended(taskElmt);
             })
         })
         // Event to show task form
@@ -101,14 +130,14 @@ const createInterfacer = () => {
     // Toggle task.isDone
     const clearTask = (task) => {
         task.setIsDone();
-        task.printTask();
-        interfacerRefreshMain(_PM, _PM.getFocusedProject())
+        task.logTask();
+        interfacerRefreshMain(_PM, _PM.getFocusedProject());
     };
 
     // Delete task from project and UI
     const deleteTask = (taskId, project) => {
         project.removeTask(taskId);
-        interfacerRefreshMain(_PM, _PM.getFocusedProject())
+        interfacerRefreshMain(_PM, _PM.getFocusedProject());
     };
 
     

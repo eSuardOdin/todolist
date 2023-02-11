@@ -7,7 +7,7 @@ const createTask = (title, description, dueDate, priority, checkList, isDue = fa
     let _isDue = isDue;  // Not sure if it belongs here
     let _isDone = isDone;
 
-    const printTask = () => {
+    const logTask = () => {
         console.log(`
         Title : ${_title}
         Description : ${_description}
@@ -39,7 +39,7 @@ const createTask = (title, description, dueDate, priority, checkList, isDue = fa
     const setIsDone = () => _isDone = !_isDone;
 
     return {
-        printTask, 
+        logTask, 
         getTimeLeft, 
         getTitle,
         getDescription,
