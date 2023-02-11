@@ -69,7 +69,8 @@ const createInterfacer = () => {
         clearBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.parentElement.getAttribute('id').substring(1);
-                clearTask(_PM.getSingleProject(_PM.getFocusedProject()).getTask(id));
+                const task = _PM.getSingleProject(_PM.getFocusedProject()).getTask(id);
+                clearTask(task);
             })
         });
 
@@ -77,7 +78,10 @@ const createInterfacer = () => {
         const extendBtns = document.querySelectorAll('.icon-extends-task');
         extendBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                _UI.extendTask(btn.parentElement);
+                const id = btn.parentElement.getAttribute('id').substring(1);
+                const task = _PM.getSingleProject(_PM.getFocusedProject()).getTask(id);
+                console.log(id);
+                _UI.extendTask(btn.parentElement, task);
             })
         })
         // Event to show task form

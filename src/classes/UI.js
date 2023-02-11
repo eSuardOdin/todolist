@@ -240,7 +240,7 @@ const createUI = (body) => {
 
         // Elements
         const title = document.createElement('p');
-        const prio = document.createElement('p');
+        let prio = document.createElement('p');
         const dueDate = document.createElement('p');
         const description = document.createElement('p');
         const timeLeft = document.createElement('p');
@@ -258,6 +258,35 @@ const createUI = (body) => {
         clearBtn.classList.add('task-ext-clear-btn');
         delBtn.classList.add('task-ext-del-btn');
         collapseBtn.classList.add('task-ext-collapse-btn');
+
+        title.textContent = task.getTitle();
+        switch (Number(task.getPriority())) {
+            case 1:
+                prio.textContent = "Higher";
+                break;
+            case 2:
+                prio.textContent = "High";
+                break;
+            case 3:
+                prio.textContent = "Medium";
+                break;
+            case 4:
+                prio.textContent = "Low";
+                break;
+            default:
+                prio.textContent = "Lower"
+                break;
+        };
+
+
+        taskElement.appendChild(title);
+        taskElement.appendChild(prio);
+        taskElement.appendChild(dueDate);
+        taskElement.appendChild(description);
+        taskElement.appendChild(timeLeft);
+        taskElement.appendChild(clearBtn);
+        taskElement.appendChild(delBtn);
+        taskElement.appendChild(collapseBtn);
     } 
 
     const getTaskForm = () => _taskFormContainer;
