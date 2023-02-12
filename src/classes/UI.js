@@ -137,9 +137,11 @@ const createUI = (body) => {
 
             if(extendedTasks.indexOf(indexTask) === -1) { // If element not extend
                 taskElement = printTask(task, indexTask);
+                taskElement.classList.remove('extended');
             }
             else {
                 taskElement = printExtendedTask(task, indexTask);
+                taskElement.classList.add('extended');
             }
             container.appendChild(taskElement);
             indexTask ++;
@@ -174,9 +176,7 @@ const createUI = (body) => {
 
     const printTask = (task, index) => {
         const container = document.createElement('div');
-        
-        
-        // Not extended
+
         if(task.getIsDone()) {
             container.classList.remove('task-container');
             container.classList.add('task-container-done');
@@ -282,9 +282,15 @@ const createUI = (body) => {
         dueDate.classList.add('task-ext-dueDate');
         description.classList.add('task-ext-description');
         timeLeft.classList.add('task-ext-timeleft');
+        // Clear button gets two classes
+        clearBtn.classList.add('icon-clear-task');
         clearBtn.classList.add('task-ext-clear-btn');
+        // Del button gets two classes
+        delBtn.classList.add('icon-delete-task');
         delBtn.classList.add('task-ext-del-btn');
+        // Extend button gets two classes
         collapseBtn.classList.add('task-ext-collapse-btn');
+        collapseBtn.classList.add('icon-extends-task');
 
         title.textContent = task.getTitle();
         switch (Number(task.getPriority())) {
@@ -339,7 +345,6 @@ const createUI = (body) => {
         printTask,
         printExtendedTask,
         resetTaskForm,
-        toggleExtended,
     }
 };
 

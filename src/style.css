@@ -212,7 +212,7 @@
     grid-template-rows: 50px 50px 1fr 50px;
     cursor: pointer;
     transition: 0.4s;
-    padding: 5px;
+    padding: 15px;
     border-radius: 5px;
     background-color: rgb(240, 240, 233);
     justify-content: center;
@@ -256,10 +256,7 @@
 
 .task-ext-collapse-btn {
     grid-row: 4/5;
-    grid-column: 7/8;
-}
-.extended {
-    height: 20vh;
+    grid-column: 8/9;
 }
 /* 
 -----------------------

@@ -1,9 +1,3 @@
-06/02 : 
-
-- Added projectManager.focusedProject changing on click.
-
-07/02
-- Added can add task to a specific project and display in main tab
 
 
 ----------------------------------------------------------------------------------
@@ -11,11 +5,10 @@
  
 To do next : 
 
-- Expend task tab ?
-- Prevent NaN on date !!
+- Sort by priority, dueDate, timeLeft
 
 
 ----------------------------------------------------------------------------------
 
 Now on :
-- I use an extendedList array in interfacer, it's pushing and slicing on extend button
+- Working on sorting

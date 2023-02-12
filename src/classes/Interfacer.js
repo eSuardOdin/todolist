@@ -94,23 +94,20 @@ const createInterfacer = () => {
         extendBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 let taskElmt = btn.parentElement;
-                const id = taskElmt.getAttribute('id').substring(1);
+                const id = Number(taskElmt.getAttribute('id').substring(1));
                 const task = _PM.getSingleProject(_PM.getFocusedProject()).getTask(id);
                 let container = document.querySelector('.main-tasks-container');
+                console.log(container.children.item(1));
 
-                // console.log(extendedList.indexOf(id));
+                
                 if(extendedList.indexOf(id) === -1) {
                     extendedList.push(id);
-                    container = _UI.printExtendedTask(task, id);
-
-                    console.log(container.parentElement);
-                } else {
+                    interfacerRefreshMain(_PM, _PM.getFocusedProject());
+                } 
+                else {
                     extendedList.splice(extendedList.indexOf(id), 1);
-                    container = _UI.printTask(task, id);
-                    console.log(container.parentElement);
+                    interfacerRefreshMain(_PM, _PM.getFocusedProject());
                 }
-                console.log(extendedList);
-                _UI.toggleExtended(taskElmt);
             })
         })
         // Event to show task form
@@ -137,6 +134,7 @@ const createInterfacer = () => {
     // Delete task from project and UI
     const deleteTask = (taskId, project) => {
         project.removeTask(taskId);
+        extendedList.splice(extendedList.indexOf(taskId), 1);
         interfacerRefreshMain(_PM, _PM.getFocusedProject());
     };
 
@@ -153,8 +151,9 @@ const createInterfacer = () => {
             const projectID = getId(project);
             project.addEventListener('click', () => {
                 _PM.setFocusedProject(projectID);
+                extendedList.length = 0;   
                 interfacerRefreshMain(_PM, projectID);
-                console.log(`focused project is ${_PM.getSingleProject(_PM.getFocusedProject()).getName()}`);
+                // console.log(`focused project is ${_PM.getSingleProject(_PM.getFocusedProject()).getName()}`);
 
             });
         })
@@ -227,7 +226,10 @@ const createInterfacer = () => {
         // Check if date is ok
         const now = new Date().getTime();
         if (now > dueDate.getTime()) {
-            return {valid: false, err: 'Date error'};
+            return {valid: false, err: 'Cannot plan tasks backwards.'};
+        }
+        else if (isNaN(dueDate.getTime())) {
+            return {valid: false, err: 'Please enter a valid due date.'};
         }
 
         // Check if task name already existing in this project
