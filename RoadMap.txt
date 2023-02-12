@@ -8,6 +8,9 @@ To do next :
 - Get the original sorting (sort without mutating the original array)
 - Styling
 
+Warning : 
+- Task cleared style
+
 Maybe :
 - Get some stats (% of tasks done etc...)
 
@@ -15,4 +18,4 @@ Maybe :
 ----------------------------------------------------------------------------------
 
 Now on :
-- Working on sorting by priority
+- Working on clearing
