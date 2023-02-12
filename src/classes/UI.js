@@ -121,6 +121,21 @@ const createUI = (body) => {
         console.log(extendedTasks);
         _dynamicMain.innerHTML = `
         <h1 class="main-project-title"></h1>
+        <div class="task-sort-container">
+            <label for="task-sort">Sort tasks : </label>
+            <select required name="task-sort" id="task-sort">
+
+                <option value="" selected></option>
+
+                <option value ="prio-asc">By priority (asc.)</option>
+                <option value="prio-desc">By priority (desc.)</option>
+
+                <option value ="due-date-asc">By due date (asc.)</option>
+                <option value="due-date-desc">By due date (desc.)</option>
+            </select>
+
+            <button class="sort-btn">Sort</button>
+        </div>
         <div class="main-tasks-container"></div>
         `;
         const container = document.querySelector('.main-tasks-container');

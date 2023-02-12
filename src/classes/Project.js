@@ -33,9 +33,41 @@ const createProject = (name) => {
         }
     }
 
+    const sortBy = (type) => {
+        switch (type) {
+            case 'prio-asc':
+                _tasks.sort((a, b) => {
+                    return a.getPriority() - b.getPriority();
+                });
+                break;
+            
+            case 'prio-desc':
+                _tasks.sort((a, b) => {
+                    return b.getPriority() - a.getPriority();
+                });
+                break;
+            
+            case 'due-date-asc':
+                _tasks.sort((a, b) => {
+                    return a.getDueDate().getTime() - b.getDueDate().getTime();
+                });
+                break;
+
+            case 'due-date-desc':
+                _tasks.sort((a, b) => {
+                    return b.getDueDate().getTime() - a.getDueDate().getTime();
+                });
+                break;
+        
+            default:
+                return _tasks;
+                break;
+        }
+        
+    }
     // Return all tasks (only for dev / debug I think)
     const getAllTasks = () => _tasks;
-    return {getName, addTask, removeTask, getTask, getAllTasks};
+    return {getName, addTask, removeTask, getTask, getAllTasks, sortBy};
 };
 
 

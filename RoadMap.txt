@@ -5,10 +5,14 @@
  
 To do next : 
 
-- Sort by priority, dueDate, timeLeft
+- Get the original sorting (sort without mutating the original array)
+- Styling
+
+Maybe :
+- Get some stats (% of tasks done etc...)
 
 
 ----------------------------------------------------------------------------------
 
 Now on :
-- Working on sorting
+- Working on sorting by priority

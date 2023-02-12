@@ -12,9 +12,18 @@ const createInterfacer = () => {
     _defaultProject.addTask(data.task2);
     _defaultProject.addTask(data.task3);
     _defaultProject.addTask(data.task4);
+    _defaultProject.addTask(data.task5);
+    _defaultProject.addTask(data.task6);
+    _defaultProject.addTask(data.task7);
+    _defaultProject.addTask(data.task8);
+    _defaultProject.addTask(data.task9);
+
  
     _PM.addProject(_defaultProject);
 
+    // _defaultProject.getAllTasks().forEach(task => task.logTask());
+    // console.log(_defaultProject.sortBy('prio-desc'));
+    // // _defaultProject.sortBy('prio-desc').forEach(task => task.logTask());
 
     const _UI = createUI(document.body);
 
@@ -37,24 +46,6 @@ const createInterfacer = () => {
     // Refresh tasks for a project
     const interfacerRefreshMain = (pm, ind) => {
         _UI.refreshMain(pm, ind, extendedList);
-        
-        // Delete old tasks ?
-        // #region
-        // -------------------------------------------------------------------
-        // o----------------------------------------------------------------o
-        // |  Removed to go in UI.refreshMain, uncomment if not working     |
-        // o----------------------------------------------------------------o  
-        // // In order to iterate trough all focusedProject.tasks
-        // let index = 0;
-        // const focusedProject = pm.getSingleProject(pm.getFocusedProject());
-        
-        // focusedProject.getAllTasks().forEach(task => {
-        //     const taskElement = _UI.printTask(task, index);
-        //     container.appendChild(taskElement);
-        //     index ++;
-        // })
-        // -------------------------------------------------------------------
-        // #endregion
 
 
 
@@ -80,7 +71,7 @@ const createInterfacer = () => {
                 const id = btn.parentElement.getAttribute('id').substring(1);
                 const task = _PM.getSingleProject(_PM.getFocusedProject()).getTask(id);
                 clearTask(task);
-            })
+            });
         });
 
         
@@ -108,8 +99,20 @@ const createInterfacer = () => {
                     extendedList.splice(extendedList.indexOf(id), 1);
                     interfacerRefreshMain(_PM, _PM.getFocusedProject());
                 }
-            })
-        })
+            });
+        });
+
+        // -----------------------------------------------
+        // EVENT FOR SORT BTN
+        const sortBtn = document.querySelector('.sort-btn');
+        sortBtn.addEventListener('click', () => {
+            const taskSort = document.querySelector('#task-sort').value;
+            _PM.getSingleProject(_PM.getFocusedProject()).sortBy(taskSort);
+            interfacerRefreshMain(_PM, _PM.getFocusedProject());
+            
+        });
+
+
         // Event to show task form
         tForm.addEventListener('click', () => {
             _UI.print(document.querySelector('.task-error'), '');
