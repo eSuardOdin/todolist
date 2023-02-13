@@ -117,8 +117,7 @@ const createUI = (body) => {
         });
     };
 
-    const refreshMain = (projectManager, index, extendedTasks) => {
-        console.log(extendedTasks);
+    const refreshMain = (projectManager, index, extendedTasks, filter = 'all') => {
         _dynamicMain.innerHTML = `
         <h1 class="main-project-title"></h1>
         <div class="task-sort-container">
@@ -136,6 +135,18 @@ const createUI = (body) => {
 
             <button class="sort-btn">Sort</button>
         </div>
+        <div class="task-filter-container">
+            <label for="task-filter">Show : </label>
+            <select required name="task-filter" id="task-filter">
+
+                <option value="all" selected>All</option>
+
+                <option value ="done">Done</option>
+                <option value="due">Due</option>
+            </select>
+
+            <button class="filter-btn">Filter</button>
+        </div>
         <div class="main-tasks-container"></div>
         `;
         const container = document.querySelector('.main-tasks-container');
@@ -149,7 +160,10 @@ const createUI = (body) => {
         let indexTask = 0;
         focusedProject.getAllTasks().forEach(task => {
             let taskElement;
-
+            if(filter === 'all' ||
+            (filter === 'done' && task.getIsDone()) ||
+            (filter === 'due' && !task.getIsDone())    
+            )
             if(extendedTasks.indexOf(indexTask) === -1) { // If element not extend
                 taskElement = printTask(task, indexTask);
                 taskElement.classList.remove('extended');
@@ -240,6 +254,7 @@ const createUI = (body) => {
         else {
             iconClearTask.innerText = 'Clear';
             dateTask.innerText = `Until the ${month}/${day}/${year}`;
+            iconClearTask.classList.add('icon-clear-task');
         }
         
         const iconDeleteTask = document.createElement('p');
@@ -251,7 +266,7 @@ const createUI = (body) => {
         
         titleTask.classList.add('title-task');
         dateTask.classList.add('date-task');
-        iconClearTask.classList.add('icon-clear-task');
+        
         iconExtendsTask.classList.add('icon-extends-task');
         iconDeleteTask.classList.add('icon-delete-task');
         
@@ -298,7 +313,9 @@ const createUI = (body) => {
         description.classList.add('task-ext-description');
         timeLeft.classList.add('task-ext-timeleft');
         // Clear button gets two classes
-        clearBtn.classList.add('icon-clear-task');
+        if(!task.getIsDone()){
+            clearBtn.classList.add('icon-clear-task');
+        }
         clearBtn.classList.add('task-ext-clear-btn');
         // Del button gets two classes
         delBtn.classList.add('icon-delete-task');
@@ -331,7 +348,7 @@ const createUI = (body) => {
         dueDate.innerText = `Until the ${month}/${day}/${year}`;
         timeLeft.innerText = `${task.getTimeLeft().days} days and ${task.getTimeLeft().hours} hours left`
         description.innerText = task.getDescription();
-        clearBtn.innerText = 'Clear';
+        clearBtn.innerText = (task.getIsDone()) ? 'Task Cleared !' : 'Clear';
         delBtn.innerText = 'Delete';
         collapseBtn.innerText = '^';
 

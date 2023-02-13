@@ -23,7 +23,7 @@ const createInterfacer = () => {
 
     // _defaultProject.getAllTasks().forEach(task => task.logTask());
     // console.log(_defaultProject.sortBy('prio-desc'));
-    // // _defaultProject.sortBy('prio-desc').forEach(task => task.logTask());
+    _defaultProject.sortBy('prio-asc');
 
     const _UI = createUI(document.body);
 
@@ -44,8 +44,9 @@ const createInterfacer = () => {
    
 
     // Refresh tasks for a project
-    const interfacerRefreshMain = (pm, ind) => {
-        _UI.refreshMain(pm, ind, extendedList);
+    const interfacerRefreshMain = (pm, ind, filter = 'all') => {
+        
+        _UI.refreshMain(pm, ind, extendedList, filter);
 
 
 
@@ -112,6 +113,15 @@ const createInterfacer = () => {
             
         });
 
+
+        // -----------------------------------------------
+        // EVENT FOR FILTER BTN
+        const filterBtn = document.querySelector('.filter-btn');
+        filterBtn.addEventListener('click', () => {
+            console.log('hello');
+            const taskFilter = document.querySelector('#task-filter').value;
+            interfacerRefreshMain(_PM, _PM.getFocusedProject(), taskFilter);
+        });
 
         // Event to show task form
         tForm.addEventListener('click', () => {
