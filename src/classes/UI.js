@@ -159,11 +159,12 @@ const createUI = (body) => {
 
         let indexTask = 0;
         focusedProject.getAllTasks().forEach(task => {
-            let taskElement;
             if(filter === 'all' ||
             (filter === 'done' && task.getIsDone()) ||
             (filter === 'due' && !task.getIsDone())    
-            )
+            ) {
+            let taskElement;
+
             if(extendedTasks.indexOf(indexTask) === -1) { // If element not extend
                 taskElement = printTask(task, indexTask);
                 taskElement.classList.remove('extended');
@@ -173,6 +174,8 @@ const createUI = (body) => {
                 taskElement.classList.add('extended');
             }
             container.appendChild(taskElement);
+
+            }
             indexTask ++;
         })
     };
