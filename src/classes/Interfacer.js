@@ -26,6 +26,7 @@ const createInterfacer = () => {
     _defaultProject.sortBy('prio-asc');
 
     const _UI = createUI(document.body);
+    let _filter = 'all';
 
     const pForm = document.querySelector('.project-form-btn');
     const pValid = document.querySelector('.create-project-btn');
@@ -89,17 +90,18 @@ const createInterfacer = () => {
                 const id = Number(taskElmt.getAttribute('id').substring(1));
                 const task = _PM.getSingleProject(_PM.getFocusedProject()).getTask(id);
                 let container = document.querySelector('.main-tasks-container');
-                console.log(container.children.item(1));
+                // console.log(container.children.item(1));
 
-                
+                 
                 if(extendedList.indexOf(id) === -1) {
                     extendedList.push(id);
-                    interfacerRefreshMain(_PM, _PM.getFocusedProject());
+                    interfacerRefreshMain(_PM, _PM.getFocusedProject(), _filter);
                 } 
                 else {
                     extendedList.splice(extendedList.indexOf(id), 1);
-                    interfacerRefreshMain(_PM, _PM.getFocusedProject());
+                    interfacerRefreshMain(_PM, _PM.getFocusedProject(), _filter);
                 }
+            
             });
         });
 
@@ -108,9 +110,11 @@ const createInterfacer = () => {
         const sortBtn = document.querySelector('.sort-btn');
         sortBtn.addEventListener('click', () => {
             const taskSort = document.querySelector('#task-sort').value;
+            // _filter = document.querySelector('#task-filter').value;  // Will filter too
             _PM.getSingleProject(_PM.getFocusedProject()).sortBy(taskSort);
-            interfacerRefreshMain(_PM, _PM.getFocusedProject());
-            
+            // interfacerRefreshMain(_PM, _PM.getFocusedProject());
+            interfacerRefreshMain(_PM, _PM.getFocusedProject(), _filter);
+
         });
 
 
@@ -118,9 +122,8 @@ const createInterfacer = () => {
         // EVENT FOR FILTER BTN
         const filterBtn = document.querySelector('.filter-btn');
         filterBtn.addEventListener('click', () => {
-            console.log('hello');
-            const taskFilter = document.querySelector('#task-filter').value;
-            interfacerRefreshMain(_PM, _PM.getFocusedProject(), taskFilter);
+            _filter = document.querySelector('#task-filter').value;
+            interfacerRefreshMain(_PM, _PM.getFocusedProject(), _filter);
         });
 
         // Event to show task form
@@ -140,7 +143,7 @@ const createInterfacer = () => {
     // Toggle task.isDone
     const clearTask = (task) => {
         task.setIsDone();
-        task.logTask();
+        // task.logTask();
         interfacerRefreshMain(_PM, _PM.getFocusedProject());
     };
 

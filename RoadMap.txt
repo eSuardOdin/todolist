@@ -5,8 +5,8 @@
  
 To do next : 
 
-- Get the original sorting (sort without mutating the original array)
 - Styling
+- Refactor
 
 Warning : 
 - Task cleared style
